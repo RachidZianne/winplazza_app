@@ -50,6 +50,6 @@ jobs:
       - name: Update APK on VM
         run: |
           # Copy the APK to a temporary location on the VM
-          scp -o StrictHostKeyChecking=no ./README winplazza@62.210.71.92:/tmp/README
+          scp -o StrictHostKeyChecking=no ./pubspec.yaml winplazza@62.210.71.92:/tmp/pubspec.yaml
           # SSH into the VM, delete any existing APK in /var/www/html/html, and move the new APK to /var/www/html/html
-          ssh -o StrictHostKeyChecking=no winplazza@62.210.71.92 "sudo rm -f /var/www/html/html/README && sudo mv /tmp/README /var/www/html/html"
+          ssh -o StrictHostKeyChecking=no winplazza@62.210.71.92 "sudo rm -f /var/www/html/html/pubspec.yaml && sudo mv /tmp/pubspec.yaml /var/www/html/html"
