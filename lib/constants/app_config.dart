@@ -1,8 +1,8 @@
-
 class AppConfig {
   static final ECOMMERCE_URL        = "https://abc123.winplazza.com";
   // static final ECOMMERCE_URL        = "https://rawal-dev.vector-coder.com";
-
+   static final testVar = "test";
+   static final faizan="Happy?";
   static const CONSUMER_KEY           = "1234";
   static const CONSUMER_SECRET        = "sk_1234";
   static const ONESIGNAL_APP_ID       = "e9c91263-ff8b-412f-a167-fc843f3bdccf";
