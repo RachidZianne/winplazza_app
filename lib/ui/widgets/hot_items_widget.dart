@@ -21,12 +21,15 @@ class HotItemsWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (isTitleVisible)
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Text((AppLocalizations.of(context)!.translate("Hot items"))!.toUpperCase(),
-                  style: Theme.of(context).textTheme.subtitle1),
+                  style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)
+                  // Theme.of(context).textTheme.subtitle1
+              ),
             ),
           BlocBuilder<CategoriesBloc, CategoriesState>(
             builder: (context, state) {

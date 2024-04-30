@@ -86,79 +86,111 @@ final keyCounter = GlobalKey();
           }
         },
         child: Scaffold(
+
           key: scaffoldKey,
           drawer: Drawer(
-            child: Column(children: [
-              SafeArea(
-                child: Container(
+            elevation: 0,
+backgroundColor: Colors.transparent,
+            child: Container(
+             color: Colors.transparent,
 
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    alignment: Alignment.centerLeft,
-                    width: double.maxFinite,
-                    child: Text(
-                      AppLocalizations.of(context)!.translate("Welcome Guest")!,
-                    )),
-              ),
-              BlocBuilder<CategoriesBloc, CategoriesState>(
-                builder: (context, state) {
-                  if (state is CategoriesLoaded) {
-                    List<Category> parentCategories =
-                        getParentCategories(state.categoriesResponse.data!);
-                    return Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: parentCategories.length,
-                        itemBuilder: (context, i) {
-                          List<Category> childData = getChildCategories(
-                              state.categoriesResponse.data!,
-                              parentCategories[i].id!);
-                          return (childData.isNotEmpty)
-                              ? ExpansionTile(
-                                  title: Text(
-                                    parentCategories[i].name!,
-                                    style: const TextStyle(fontSize: 12.0),
-                                  ),
-                                  children: <Widget>[
-                                    Column(
-                                      children:
-                                          _buildExpandableContent(childData),
-                                    ),
-                                  ],
-                                )
-                              : ListTile(
-                                  onTap: () => _navigateToNext(BlocProvider(
-                                      create: (BuildContext context) {
-                                        return ProductsByCatBloc(
-                                            RealProductsRepo(),
-                                            BlocProvider.of<CategoriesBloc>(
-                                                context),
-                                            parentCategories[i].id,
-                                            "id",
-                                            "ASC",
-                                            "");
-                                      },
-                                      child: ShopScreen(parentCategories[i],
-                                          _navigateToNext))),
-                                  title: Text(
-                                    parentCategories[i].name!,
-                                    style: const TextStyle(fontSize: 12.0),
-                                  ));
-                        },
+              child: Column(children: [
+                SafeArea(
+                  child: Container(
+
+                      padding: const EdgeInsets.only(left: 16.0,right: 16,top: 16,bottom: 16),
+                      alignment: Alignment.centerLeft,
+                      width: double.maxFinite,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(20) )),
+                      child: Text(
+                        AppLocalizations.of(context)!.translate("Welcome Guest")!,
+                        style:  TextStyle(
+                          color: Theme.of(context).brightness == Brightness.dark ? Colors.black:Colors.black,
+                            fontWeight: FontWeight.bold,fontSize: 20),
+
                       ),
-                    );
-                  } else if (state is CategoriesError) {
-                    return Text(state.error);
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
-                      ),
-                    );
-                  }
-                },
-              ),
-            ]),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.only(bottomRight: Radius.circular(20))),
+                  
+                  child: BlocBuilder<CategoriesBloc, CategoriesState>(
+                    builder: (context, state) {
+                      if (state is CategoriesLoaded) {
+                        List<Category> parentCategories =
+                            getParentCategories(state.categoriesResponse.data!);
+                        return Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: parentCategories.length,
+                            itemBuilder: (context, i) {
+                              List<Category> childData = getChildCategories(
+                                  state.categoriesResponse.data!,
+                                  parentCategories[i].id!);
+                              return (childData.isNotEmpty)
+                                  ? ExpansionTile(
+                                backgroundColor: Colors.white,
+                                      title: Text(
+                                        parentCategories[i].name!,
+                                        style: const TextStyle(fontSize: 12.0),
+                                      ),
+                                      children: <Widget>[
+                                        Column(
+                                          children:
+                                              _buildExpandableContent(childData),
+                                        ),
+
+                                      ],
+                                    )
+                                  : Column(
+                                    children: [
+                                      ListTile(
+
+                                          onTap: () => _navigateToNext(BlocProvider(
+                                              create: (BuildContext context) {
+                                                return ProductsByCatBloc(
+                                                    RealProductsRepo(),
+                                                    BlocProvider.of<CategoriesBloc>(
+                                                        context),
+                                                    parentCategories[i].id,
+                                                    "id",
+                                                    "ASC",
+                                                    "");
+                                              },
+                                              child: ShopScreen(parentCategories[i],
+                                                  _navigateToNext))),
+                                          title: Text  (
+                                            parentCategories[i].name!,
+                                            style:  TextStyle(
+                                                color: Theme.of(context).brightness == Brightness.dark ? Colors.black:Colors.black,
+                                                fontSize: 12.0,fontFamily: "MontserratSemiBold"),
+                                          )),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                                        child: Container(height: 1,color: Colors.grey,),
+                                      )
+                                    ],
+                                  );
+                            },
+                          ),
+                        );
+                      } else if (state is CategoriesError) {
+                        return Text(state.error);
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ]),
+            ),
           ),
           body: Stack(
             children: [

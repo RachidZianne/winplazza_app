@@ -214,525 +214,530 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: Padding(
-                          padding:const EdgeInsets.symmetric(
-                              vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
-                              horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics:const NeverScrollableScrollPhysics(),
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    AppStyles.CARD_RADIUS),
-                                child: Container(
-                                    width: double.maxFinite,
-                                    child: AspectRatio(
-                                      aspectRatio: 1.5/1,
-                                      child: Stack(
-                                        // alignment: Alignment.bottomCenter,
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding:const EdgeInsets.symmetric(
+                                vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
+                                horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
+                            child: ListView(
+                              shrinkWrap: true,
+                              physics:const NeverScrollableScrollPhysics(),
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      AppStyles.CARD_RADIUS),
+                                  child: Container(
+                                      width: double.maxFinite,
+                                      child: AspectRatio(
+                                        aspectRatio: 1.5/1,
+                                        child: Stack(
+                                          // alignment: Alignment.bottomCenter,
+                                          children: [
+                                            CarouselSlider.builder(
+                                              options: CarouselOptions(
+                                                height: double.maxFinite,
+                                                autoPlay: true,
+                                                viewportFraction: 1.0,
+                                                enableInfiniteScroll: true,
+                                                initialPage: 0,
+                                                autoPlayInterval:
+                                                Duration(seconds: 5),
+                                                enlargeCenterPage: false,
+                                                autoPlayAnimationDuration:
+                                                Duration(milliseconds: 500),
+                                                autoPlayCurve: Curves.fastOutSlowIn,
+                                                pauseAutoPlayOnTouch: false,
+                                                scrollDirection: Axis.horizontal,
+                                                onPageChanged: (index, reason) {
+                                                  setState(() {
+                                                    _sliderIndex = index;
+                                                  });
+                                                },
+                                              ),
+                                              itemBuilder: (BuildContext context,
+                                                  int index, int realIndex) {
+                                                return Container(
+                                                  width: double.maxFinite,
+                                                  height: double.maxFinite,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: ApiProvider
+                                                        .imgMediumUrlString +
+                                                        widget
+                                                            .product
+                                                            .productGallaryDetail![
+                                                        index]
+                                                            .gallaryName!,
+                                                    fit: BoxFit.cover,
+                                                    progressIndicatorBuilder: (context,
+                                                        url, downloadProgress) =>
+                                                        Center(
+                                                            child: CircularProgressIndicator(
+                                                                value:
+                                                                downloadProgress
+                                                                    .progress)),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                       const Icon(Icons.error),
+                                                  ),
+                                                );
+                                              },
+                                              itemCount: widget.product
+                                                  .productGallaryDetail?.length,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Container(
+                                                margin:const EdgeInsets.only(top: 150),
+                                                height: 50.0,
+                                                child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  scrollDirection: Axis.horizontal,
+                                                  itemBuilder: (context, index) {
+                                                    return Container(
+                                                      width: 8.0,
+                                                      height: 8.0,
+                                                      margin:const EdgeInsets.symmetric(
+                                                          vertical: 12,
+                                                          horizontal: 2.0),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.black54),
+                                                        shape: BoxShape.circle,
+                                                        color: _sliderIndex == index
+                                                            ? Colors.white54
+                                                            : Colors.transparent,
+                                                      ),
+                                                    );
+                                                  },
+                                                  itemCount: widget.product
+                                                      .productGallaryDetail?.length,
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: Container(
+                                                margin:const EdgeInsets.all(12),
+                                                width: 35,
+                                                height: 35,
+                                              decoration: BoxDecoration( color: Colors.black,borderRadius: BorderRadius.all(Radius.circular(20),)),
+                                                child: SvgPicture.asset(
+                                                  (checkForWishlist(
+                                                      widget.product.productId!))
+                                                      ? "assets/icons/ic_heart_filled.svg"
+                                                      : "assets/icons/ic_heart.svg",
+                                                  fit: BoxFit.none,
+                                                  width: 14,
+                                                  height: 14,
+                                                  color: (false)
+                                                      ? Theme.of(context)
+                                                      .primaryColor
+                                                      : Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                  ),
+                                ),
+                               const SizedBox(height: 12.0),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        if (widget.product.productDiscountPrice !=
+                                            0)
+                                          buildLabel(
+                                            AppLocalizations.of(context)!.translate("SALE")!,
+                                            Theme.of(context).primaryColor,
+                                          ),
+                                      const SizedBox(width: 10),
+                                        if (widget.product.isFeatured == 1)
+                                          buildLabel(
+                                            AppLocalizations.of(context)!.translate("FEATURED")!,
+                                           const Color(0xFF36AFFF),
+                                          ),
+                                        /*SizedBox(width: 10),
+                                        buildLabel(
+                                          "NEW",
+                                          Color(0xFF18EF35),
+                                        ),*/
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (AppData.user != null) {
+                                              if (checkForWishlist(
+                                                  widget.product.productId!)) {
+                                                for (int i = 0;
+                                                i <
+                                                    AppData
+                                                        .wishlistData.length;
+                                                i++) {
+                                                  if (AppData.wishlistData[i]
+                                                      .productId ==
+                                                      widget.product.productId) {
+                                                    setState(() {
+                                                      BlocProvider.of<
+                                                          WishlistBloc>(
+                                                          context)
+                                                          .add(UnLikeProduct(
+                                                          AppData
+                                                              .wishlistData[i]
+                                                              .wishlist!));
+                                                    });
+                                                    break;
+                                                  }
+                                                }
+                                              } else {
+                                                BlocProvider.of<WishlistBloc>(
+                                                    context)
+                                                    .add(LikeProduct(widget
+                                                    .product.productId!));
+                                              }
+                                            }
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(5),
+                                          ),
+                                        ),
+                                        SizedBox(width: 12.0),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Share.share(
+                                                AppLocalizations.of(context)!.translate("Hi there, please check this app. i think you will love it. ")!);
+                                          },
+                                          child: Icon(
+                                            Icons.share,
+                                            color: Colors.grey[400],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 12.0),
+                                Text(
+                                  widget.product.detail!.first.title!,
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontFamily: "MontserratSemiBold"),
+                                ),
+                                SizedBox(height: 6.0),
+                                (widget.product.productDiscountPrice != 0) ?
+                                Row(
+                                  children: [
+                                    Text(
+                                      AppData.currency!.code !+
+                                          double.parse(widget.product.productDiscountPrice
+                                              .toString())
+                                              .toStringAsFixed(2),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          ?.copyWith(
+                                          color: Theme.of(context).primaryColor),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      AppData.currency!.code !+
+                                          double.parse(widget
+                                              .product.productPrice
+                                              .toString())
+                                              .toStringAsFixed(2),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          ?.copyWith(
+                                          decoration:
+                                          TextDecoration.lineThrough),
+                                    ),
+                                  ],
+                                ) : Text(
+                                  AppData.currency!.code !+
+                                      double.parse(widget.product.productPrice
+                                          .toString())
+                                          .toStringAsFixed(2),
+                                  style: TextStyle(
+                                      fontSize: 12.0,
+                                      fontFamily: "MontserratSemiBold"),
+                                ),
+                                SizedBox(height: 6.0),
+                                RichText(
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                        text: AppLocalizations.of(context)!.translate("Category"),
+                                        style: Theme.of(context).textTheme.bodyText2,
+                                      ),
+                                      TextSpan(
+                                          text: widget.product.category!.first
+                                              .categoryDetail!.detail!.first.name,
+                                          style: TextStyle(
+                                              color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                                  ? AppStyles.COLOR_GREY_DARK
+                                                  : AppStyles.COLOR_GREY_LIGHT)),
+                                    ])),
+                                SizedBox(height: 4.0),
+                                RichText(
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                        text: AppLocalizations.of(context)!.translate('ID'),
+                                        style: Theme.of(context).textTheme.bodyText2,
+                                      ),
+                                      TextSpan(
+                                          text: widget.product.productId.toString(),
+                                          style: TextStyle(
+                                              color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                                  ? AppStyles.COLOR_GREY_DARK
+                                                  : AppStyles.COLOR_GREY_LIGHT)),
+                                    ])),
+                                SizedBox(height: 4.0),
+                                RichText(
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                        text: AppLocalizations.of(context)!.translate("Tags"),
+                                        style: Theme.of(context).textTheme.bodyText2,
+                                      ),
+                                      TextSpan(
+                                          text: widget.product.productBrand == null
+                                              ? ""
+                                              : widget.product.productBrand!.brandName,
+                                          style: TextStyle(
+                                              color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                                  ? AppStyles.COLOR_GREY_DARK
+                                                  : AppStyles.COLOR_GREY_LIGHT)),
+                                    ])),
+                                SizedBox(height: 8.0),
+                                Text(
+                                  AppLocalizations.of(context)!.translate("Description")!,
+                                  textAlign: TextAlign.start,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.copyWith(
+                                      color: Colors.black,fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 4.0),
+                                Text(widget.product.detail!.first.desc!,
+                                    style: TextStyle(
+                                      color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ? AppStyles.COLOR_GREY_DARK
+                                          : AppStyles.COLOR_GREY_LIGHT,
+                                    )),
+                                SizedBox(height: 4.0),
+                                if (widget.product.productType ==
+                                    AppConstants.PRODUCT_TYPE_VARIABLE)
+                                  Card(
+                                    shape :RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                        side: BorderSide(
+                                          width: 1,
+                                          color: Theme.of(context).primaryColor,
+                                        )
+                                    ),
+                                    elevation: 5,
+                                    color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).scaffoldBackgroundColor :  Colors.white,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: ListTile(
+                                        onTap: () {
+                                          buildBottomSheet(context);
+                                        },
+                                        dense: true,
+                                        contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 0),
+                                        title: Text(AppLocalizations.of(context)!.translate("Select Color, Size & Quality")!,style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.black),),
+                                        trailing: Icon(Icons.chevron_right),
+                                      ),
+                                    ),
+                                  ),
+                                if (widget.product.productType ==
+                                    AppConstants.PRODUCT_TYPE_SIMPLE)
+                                  ListTile(
+                                    dense: true,
+                                    contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 0),
+                                    title: Text(AppLocalizations.of(context)!.translate("Quantity")!),
+                                    trailing: Container(
+                                      // decoration: BoxDecoration(
+                                      //   border: Border.all(
+                                      //       color: Theme.of(context).brightness ==
+                                      //               Brightness.dark
+                                      //           ? AppStyles.COLOR_GREY_DARK
+                                      //           : AppStyles.COLOR_GREY_LIGHT),
+                                      //   borderRadius: BorderRadius.all(
+                                      //       Radius.circular(8.0)),
+                                      // ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          CarouselSlider.builder(
-                                            options: CarouselOptions(
-                                              height: double.maxFinite,
-                                              autoPlay: true,
-                                              viewportFraction: 1.0,
-                                              enableInfiniteScroll: true,
-                                              initialPage: 0,
-                                              autoPlayInterval:
-                                              Duration(seconds: 5),
-                                              enlargeCenterPage: false,
-                                              autoPlayAnimationDuration:
-                                              Duration(milliseconds: 500),
-                                              autoPlayCurve: Curves.fastOutSlowIn,
-                                              pauseAutoPlayOnTouch: false,
-                                              scrollDirection: Axis.horizontal,
-                                              onPageChanged: (index, reason) {
+                                          Container(
+                                            height: 24,
+                                            width: 24,
+                                            child : MaterialButton(
+                                              onPressed: () {
                                                 setState(() {
-                                                  _sliderIndex = index;
+                                                  if (quantity > 1) quantity--;
                                                 });
                                               },
-                                            ),
-                                            itemBuilder: (BuildContext context,
-                                                int index, int realIndex) {
-                                              return Container(
-                                                width: double.maxFinite,
-                                                height: double.maxFinite,
-                                                child: CachedNetworkImage(
-                                                  imageUrl: ApiProvider
-                                                      .imgMediumUrlString +
-                                                      widget
-                                                          .product
-                                                          .productGallaryDetail![
-                                                      index]
-                                                          .gallaryName!,
-                                                  fit: BoxFit.cover,
-                                                  progressIndicatorBuilder: (context,
-                                                      url, downloadProgress) =>
-                                                      Center(
-                                                          child: CircularProgressIndicator(
-                                                              value:
-                                                              downloadProgress
-                                                                  .progress)),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                     const Icon(Icons.error),
-                                                ),
-                                              );
-                                            },
-                                            itemCount: widget.product
-                                                .productGallaryDetail?.length,
-                                          ),
-                                          Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Container(
-                                              margin:const EdgeInsets.only(top: 150),
-                                              height: 50.0,
-                                              child: ListView.builder(
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.horizontal,
-                                                itemBuilder: (context, index) {
-                                                  return Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    margin:const EdgeInsets.symmetric(
-                                                        vertical: 12,
-                                                        horizontal: 2.0),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.black54),
-                                                      shape: BoxShape.circle,
-                                                      color: _sliderIndex == index
-                                                          ? Colors.white54
-                                                          : Colors.transparent,
-                                                    ),
-                                                  );
-                                                },
-                                                itemCount: widget.product
-                                                    .productGallaryDetail?.length,
-                                              ),
+                                              color: Colors.grey,
+                                              textColor: Colors.white,
+                                              child: Text("-",style: TextStyle(fontSize: 20),),
+                                              padding: EdgeInsets.only(bottom: 3),
+                                              shape: CircleBorder(),
                                             ),
                                           ),
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: Container(
-                                              margin:const EdgeInsets.all(12),
-                                              width: 25,
-                                              height: 25,
-                                             color:const Color(0x22000000),
-                                              child: SvgPicture.asset(
-                                                (checkForWishlist(
-                                                    widget.product.productId!))
-                                                    ? "assets/icons/ic_heart_filled.svg"
-                                                    : "assets/icons/ic_heart.svg",
-                                                fit: BoxFit.none,
-                                                width: 14,
-                                                height: 14,
-                                                color: (false)
-                                                    ? Theme.of(context)
-                                                    .primaryColor
-                                                    : Colors.white,
-                                              ),
+
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 22.0),
+                                              child: Text(
+                                                quantity.toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              )),
+                                          Container(
+                                            height: 24,
+                                            width: 24,
+                                            child : MaterialButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  quantity++;
+                                                });
+                                              },
+                                              color: Colors.black,
+                                              // color: Theme.of(context).primaryColor,
+                                              textColor: Colors.white,
+                                              child: Text("+",style: TextStyle(fontSize: 20),),
+                                              padding: EdgeInsets.only(bottom: 3),
+                                              shape: CircleBorder(),
                                             ),
                                           ),
                                         ],
                                       ),
-                                    )
-                                ),
-                              ),
-                             const SizedBox(height: 12.0),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      if (widget.product.productDiscountPrice !=
-                                          0)
-                                        buildLabel(
-                                          AppLocalizations.of(context)!.translate("SALE")!,
-                                          Theme.of(context).primaryColor,
-                                        ),
-                                    const SizedBox(width: 10),
-                                      if (widget.product.isFeatured == 1)
-                                        buildLabel(
-                                          AppLocalizations.of(context)!.translate("FEATURED")!,
-                                         const Color(0xFF36AFFF),
-                                        ),
-                                      /*SizedBox(width: 10),
-                                      buildLabel(
-                                        "NEW",
-                                        Color(0xFF18EF35),
-                                      ),*/
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (AppData.user != null) {
-                                            if (checkForWishlist(
-                                                widget.product.productId!)) { 
-                                              for (int i = 0;
-                                              i <
-                                                  AppData
-                                                      .wishlistData.length;
-                                              i++) {
-                                                if (AppData.wishlistData[i]
-                                                    .productId ==
-                                                    widget.product.productId) {
-                                                  setState(() {
-                                                    BlocProvider.of<
-                                                        WishlistBloc>(
-                                                        context)
-                                                        .add(UnLikeProduct(
-                                                        AppData
-                                                            .wishlistData[i]
-                                                            .wishlist!));
-                                                  });
-                                                  break;
-                                                }
-                                              }
-                                            } else {
-                                              BlocProvider.of<WishlistBloc>(
-                                                  context)
-                                                  .add(LikeProduct(widget
-                                                  .product.productId!));
-                                            }
-                                          }
-                                        },
-                                        child: ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(5),
-                                        ),
-                                      ),
-                                      SizedBox(width: 12.0),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Share.share(
-                                              AppLocalizations.of(context)!.translate("Hi there, please check this app. i think you will love it. ")!);
-                                        },
-                                        child: Icon(
-                                          Icons.share,
-                                          color: Colors.grey[400],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: 12.0),
-                              Text(
-                                widget.product.detail!.first.title!,
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: "MontserratSemiBold"),
-                              ),
-                              SizedBox(height: 6.0),
-                              (widget.product.productDiscountPrice != 0) ?
-                              Row(
-                                children: [
-                                  Text(
-                                    AppData.currency!.code !+
-                                        double.parse(widget.product.productDiscountPrice
-                                            .toString())
-                                            .toStringAsFixed(2),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    AppData.currency!.code !+
-                                        double.parse(widget
-                                            .product.productPrice
-                                            .toString())
-                                            .toStringAsFixed(2),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(
-                                        decoration:
-                                        TextDecoration.lineThrough),
-                                  ),
-                                ],
-                              ) : Text(
-                                AppData.currency!.code !+
-                                    double.parse(widget.product.productPrice
-                                        .toString())
-                                        .toStringAsFixed(2),
-                                style: TextStyle(
-                                    fontSize: 12.0,
-                                    fontFamily: "MontserratSemiBold"),
-                              ),
-                              SizedBox(height: 6.0),
-                              RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!.translate("Category"),
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                    ),
-                                    TextSpan(
-                                        text: widget.product.category!.first
-                                            .categoryDetail!.detail!.first.name,
-                                        style: TextStyle(
-                                            color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? AppStyles.COLOR_GREY_DARK
-                                                : AppStyles.COLOR_GREY_LIGHT)),
-                                  ])),
-                              SizedBox(height: 4.0),
-                              RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!.translate('ID'),
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                    ),
-                                    TextSpan(
-                                        text: widget.product.productId.toString(),
-                                        style: TextStyle(
-                                            color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? AppStyles.COLOR_GREY_DARK
-                                                : AppStyles.COLOR_GREY_LIGHT)),
-                                  ])),
-                              SizedBox(height: 4.0),
-                              RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!.translate("Tags"),
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                    ),
-                                    TextSpan(
-                                        text: widget.product.productBrand == null
-                                            ? ""
-                                            : widget.product.productBrand!.brandName,
-                                        style: TextStyle(
-                                            color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? AppStyles.COLOR_GREY_DARK
-                                                : AppStyles.COLOR_GREY_LIGHT)),
-                                  ])),
-                              SizedBox(height: 8.0),
-                              Text(
-                                AppLocalizations.of(context)!.translate("Description")!,
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    ?.copyWith(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                              SizedBox(height: 4.0),
-                              Text(widget.product.detail!.first.desc!,
-                                  style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                        ? AppStyles.COLOR_GREY_DARK
-                                        : AppStyles.COLOR_GREY_LIGHT,
-                                  )),
-                              SizedBox(height: 4.0),
-                              if (widget.product.productType ==
-                                  AppConstants.PRODUCT_TYPE_VARIABLE)
-                                Card(
-                                  shape :RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      side: BorderSide(
-                                        width: 1,
-                                        color: Theme.of(context).primaryColor,
-                                      )
-                                  ),
-                                  elevation: 5,
-                                  color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).scaffoldBackgroundColor :  Colors.white,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 10),
-                                    child: ListTile(
-                                      onTap: () {
-                                        buildBottomSheet(context);
-                                      },
-                                      dense: true,
-                                      contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 0),
-                                      title: Text(AppLocalizations.of(context)!.translate("Select Color, Size & Quality")!,style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.black),),
-                                      trailing: Icon(Icons.chevron_right),
                                     ),
                                   ),
-                                ),
-                              if (widget.product.productType ==
-                                  AppConstants.PRODUCT_TYPE_SIMPLE)
-                                ListTile(
-                                  dense: true,
-                                  contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 0),
-                                  title: Text(AppLocalizations.of(context)!.translate("Quantity")!),
-                                  trailing: Container(
-                                    // decoration: BoxDecoration(
-                                    //   border: Border.all(
-                                    //       color: Theme.of(context).brightness ==
-                                    //               Brightness.dark
-                                    //           ? AppStyles.COLOR_GREY_DARK
-                                    //           : AppStyles.COLOR_GREY_LIGHT),
-                                    //   borderRadius: BorderRadius.all(
-                                    //       Radius.circular(8.0)),
-                                    // ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Container(
-                                          height: 24,
-                                          width: 24,
-                                          child : MaterialButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                if (quantity > 1) quantity--;
-                                              });
+                                GestureDetector(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => BlocProvider(
+                                            create: (BuildContext context) {
+                                              return ReviewsBloc(
+                                                  RealReviewsRepo());
                                             },
-                                            color: Colors.grey,
-                                            textColor: Colors.white,
-                                            child: Text("-",style: TextStyle(fontSize: 20),),
-                                            padding: EdgeInsets.only(bottom: 3),
-                                            shape: CircleBorder(),
-                                          ),
-                                        ),
-                                        
-                                        Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 22.0),
-                                            child: Text(
-                                              quantity.toString(),
+                                            child: ReviewScreen(
+                                                widget.product.productId!)),
+                                      )),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(AppLocalizations.of(context)!.translate("Reviews")!,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!.translate("See All")!,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .subtitle1,
-                                            )),
-                                        Container(
-                                          height: 24,
-                                          width: 24,
-                                          child : MaterialButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                quantity++;
-                                              });
-                                            },
-                                            color: Theme.of(context).primaryColor,
-                                            textColor: Colors.white,
-                                            child: Text("+",style: TextStyle(fontSize: 20),),
-                                            padding: EdgeInsets.only(bottom: 3),
-                                            shape: CircleBorder(),
-                                          ),
+                                                  .bodyText2,
+                                            ),
+                                          ],
                                         ),
+                                        SizedBox(height: 8.0),
+                                        Text(
+                                          AppLocalizations.of(context)!.translate("Review name")!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                        ),
+                                        SizedBox(height: 12.0),
+                                        StarRating(
+                                            starCount: 5,
+                                            rating: widget.product
+                                                .productRating !=
+                                                null
+                                                ? double.parse(widget
+                                                .product.productRating
+                                                .toString())
+                                                : 0,
+                                            onRatingChanged: (rating) {}),
+                                        SizedBox(height: 12.0),
+                                        RichText(
+                                            text: TextSpan(children: [
+                                              TextSpan(
+                                                  text:  (widget.product.productRating !=
+                                                      null)
+                                                      ? double.tryParse(widget
+                                                      .product.productRating
+                                                      .toString())
+                                                      ?.toStringAsFixed(1)
+                                                      : 0.0.toString(),
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .brightness ==
+                                                          Brightness.dark
+                                                          ? AppStyles
+                                                          .COLOR_GREY_DARK
+                                                          : AppStyles
+                                                          .COLOR_GREY_LIGHT)
+                                              ),
+                                              TextSpan(
+                                                  text: " (" +
+                                                      widget.product.reviews
+                                                          !.length
+                                                          .toString() +
+                                                      AppLocalizations.of(context)!.translate("Reviews")!,
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .brightness ==
+                                                          Brightness.dark
+                                                          ? AppStyles
+                                                          .COLOR_GREY_DARK
+                                                          : AppStyles
+                                                          .COLOR_GREY_LIGHT)),
+                                            ])),
+
+                                        SizedBox(height: 12.0),
+
+                                        SizedBox(height: 12.0),
+
                                       ],
                                     ),
                                   ),
                                 ),
-                              GestureDetector(
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BlocProvider(
-                                          create: (BuildContext context) {
-                                            return ReviewsBloc(
-                                                RealReviewsRepo());
-                                          },
-                                          child: ReviewScreen(
-                                              widget.product.productId!)),
-                                    )),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded( 
-                                            child: Text(AppLocalizations.of(context)!.translate("Reviews")!,style: TextStyle(color: Theme.of(context).primaryColor),),
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("See All")!,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 8.0),
-                                      Text(
-                                        AppLocalizations.of(context)!.translate("Review name")!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                      ),
-                                      SizedBox(height: 12.0),
-                                      StarRating(
-                                          starCount: 5,
-                                          rating: widget.product
-                                              .productRating !=
-                                              null
-                                              ? double.parse(widget
-                                              .product.productRating
-                                              .toString())
-                                              : 0,
-                                          onRatingChanged: (rating) {}),
-                                      SizedBox(height: 12.0),
-                                      RichText(
-                                          text: TextSpan(children: [
-                                            TextSpan(
-                                                text:  (widget.product.productRating !=
-                                                    null)
-                                                    ? double.tryParse(widget
-                                                    .product.productRating
-                                                    .toString())
-                                                    ?.toStringAsFixed(1)
-                                                    : 0.0.toString(),
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .brightness ==
-                                                        Brightness.dark
-                                                        ? AppStyles
-                                                        .COLOR_GREY_DARK
-                                                        : AppStyles
-                                                        .COLOR_GREY_LIGHT)
-                                            ),
-                                            TextSpan(
-                                                text: " (" +
-                                                    widget.product.reviews
-                                                        !.length
-                                                        .toString() +
-                                                    AppLocalizations.of(context)!.translate("Reviews")!,
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .brightness ==
-                                                        Brightness.dark
-                                                        ? AppStyles
-                                                        .COLOR_GREY_DARK
-                                                        : AppStyles
-                                                        .COLOR_GREY_LIGHT)),
-                                          ])),
-
-                                      SizedBox(height: 12.0),
-                                      
-                                      SizedBox(height: 12.0),
-                                     
-                                    ],
-                                  ),
+                                //  Text("YOU MIGHT ALSO LIKE"),
+                                BlocProvider(
+                                  create: (context) =>
+                                      RelatedProductsBloc(RealProductsRepo()),
+                                  child: RelatedProductsWidget(
+                                      widget.product.category?.first.categoryDetail
+                                          ?.detail?.first.categoryId.toString(),
+                                      widget.navigateToNext),
                                 ),
-                              ),
-                              //  Text("YOU MIGHT ALSO LIKE"),
-                              BlocProvider(
-                                create: (context) =>
-                                    RelatedProductsBloc(RealProductsRepo()),
-                                child: RelatedProductsWidget(
-                                    widget.product.category?.first.categoryDetail
-                                        ?.detail?.first.categoryId.toString(),
-                                    widget.navigateToNext),
-                              ),
-                              //ProductsWidget(null, null),
-                              SizedBox(
-                                height: 75.0,
-                              )
-                            ],
+                                //ProductsWidget(null, null),
+                                SizedBox(
+                                  height: 75.0,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -752,10 +757,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       size: 24.0,
                     ),
                     label: Text(
-                        AppLocalizations.of(context)!.translate('ADD TO CART')!
+                      style: TextStyle(fontFamily: "MontserratSemiBold"),
+                        AppLocalizations.of(context)!.translate('ADD TO CART',)!
+
                     ),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,),
+                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                      // backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40.0),

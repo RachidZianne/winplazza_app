@@ -29,7 +29,7 @@ class MyBottomNavigation extends StatelessWidget {
           topRight: Radius.circular(AppStyles.CARD_RADIUS),
         ),
         child: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Theme.of(context).primaryColor,
+          selectedItemColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
           type: BottomNavigationBarType.fixed,
           currentIndex: selectedIndex,
           onTap: (value) {
@@ -39,17 +39,17 @@ class MyBottomNavigation extends StatelessWidget {
             BottomNavigationBarItem(
               label: AppLocalizations.of(context)?.translate('bottom_navigation_home'),
               icon: SvgPicture.asset("assets/icons/ic_home.svg",),
-              activeIcon: SvgPicture.asset("assets/icons/ic_home_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Theme.of(context).primaryColor),
+              activeIcon: SvgPicture.asset("assets/icons/ic_home_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
             ),
             BottomNavigationBarItem(
               label: AppLocalizations.of(context)?.translate('bottom_navigation_categories'),
               icon: SvgPicture.asset("assets/icons/ic_category.svg"),
-              activeIcon: SvgPicture.asset("assets/icons/ic_category_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Theme.of(context).primaryColor),
+              activeIcon: SvgPicture.asset("assets/icons/ic_category_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
             BottomNavigationBarItem(
               label: AppLocalizations.of(context)?.translate('bottom_navigation_wishlist'),
               icon: SvgPicture.asset("assets/icons/ic_heart.svg"),
-              activeIcon: SvgPicture.asset("assets/icons/ic_heart_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Theme.of(context).primaryColor),
+              activeIcon: SvgPicture.asset("assets/icons/ic_heart_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
 
             BottomNavigationBarItem(
@@ -57,7 +57,7 @@ class MyBottomNavigation extends StatelessWidget {
             // icon: Icon(Icons.person_outline,),
                icon: SvgPicture.asset("assets/icons/ic_person.svg",),
              // icon: SvgPicture.asset("assets/icons/ic_person_new.svg",color: Colors.black26,),
-              activeIcon: SvgPicture.asset("assets/icons/ic_person_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Theme.of(context).primaryColor),
+              activeIcon: SvgPicture.asset("assets/icons/ic_person_filled.svg",color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
             ),
 
             // BottomNavigationBarItem(

@@ -51,11 +51,14 @@ class _ProductsWidgetState extends State<ProductsWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: Text((AppLocalizations.of(context)!.translate('just for you'))!.toUpperCase(),
-                style: Theme.of(context).textTheme.subtitle1),
+                style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                // Theme.of(context).textTheme.subtitle1
+            ),
           ),
           BlocBuilder<ProductsBloc, ProductsState>(
             builder: (context, state) {
@@ -70,9 +73,9 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: AppStyles.GRID_SPACING,
-                          mainAxisSpacing: AppStyles.GRID_SPACING,
-                          childAspectRatio: 0.75,
+                          crossAxisSpacing: 18,
+                          mainAxisSpacing: 15,
+                          childAspectRatio: 0.65,
                         ),
                         itemCount: state.products!.length,
                         itemBuilder: (context, index) {        

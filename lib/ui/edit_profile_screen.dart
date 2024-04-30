@@ -61,15 +61,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: true,
         iconTheme: IconThemeData(
           color:AppConfig.APP_BAR_COLOR == 1 ?
-          Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
+          Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black :
           Colors.white,
         ),
-        backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+        backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.white,
         title: Text(
           AppLocalizations.of(context)!.translate("Edit Profile")!,
           style: TextStyle(
             color:AppConfig.APP_BAR_COLOR == 1 ?
-            Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
+            Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black :
             Colors.white,
           ),),
         //style: Theme.of(context).textTheme.headline6),
@@ -92,7 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(
             vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
-            horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
+            horizontal: 30),
         child: Column(
           children: [
             SizedBox(
@@ -281,37 +281,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       ),
                     ):
-                    ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Theme.of(context).primaryColor),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40.0),
-                              )
-                          )
-                      ),
-                      onPressed: () {
-                        if(
-                        _firstNameController.text.isNotEmpty &&
-                            _lastNameController.text.isNotEmpty &&
-                            _passwordController.text.isNotEmpty &&
-                            _confirmPasswordController.text.isNotEmpty
-                        ) {
-                          BlocProvider.of<ProfileBloc>(context).add(UpdateProfile(
-                              _firstNameController.text,
-                              _lastNameController.text,
-                              _passwordController.text,
-                              _confirmPasswordController.text
-                          ));
-                        }
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.translate("Update",)!
-                        ,style: TextStyle(
-                        color:AppConfig.APP_BAR_COLOR == 1 ?
-                        Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
-                        Colors.white,
-                      ),
+                    Container(
+                      height: 45,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+
+                            backgroundColor: MaterialStateProperty.all(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Colors.black),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40.0),
+                                )
+                            )
+                        ),
+                        onPressed: () {
+                          if(
+                          _firstNameController.text.isNotEmpty &&
+                              _lastNameController.text.isNotEmpty &&
+                              _passwordController.text.isNotEmpty &&
+                              _confirmPasswordController.text.isNotEmpty
+                          ) {
+                            BlocProvider.of<ProfileBloc>(context).add(UpdateProfile(
+                                _firstNameController.text,
+                                _lastNameController.text,
+                                _passwordController.text,
+                                _confirmPasswordController.text
+                            ));
+                          }
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.translate("Update",)!
+                          ,style: TextStyle(
+                          color:AppConfig.APP_BAR_COLOR == 1 ?
+                          Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
+                          Colors.white,
+                        ),
+                        ),
                       ),
                     ),
                   );

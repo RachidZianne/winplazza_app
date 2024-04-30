@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_kundol/api/responses/add_address_response.dart';
 import 'package:flutter_kundol/api/responses/add_review_response.dart';
@@ -335,9 +336,12 @@ Future<ShipmentCitysResponse> getShipment(String? city) async {
           sortBy +
           "&variations=" +
           filters);
+       log("Premium --- ${response.data}");
       var re = ProductsResponse.fromJson(response.data);
       return re;
-    } catch (error) {
+    } catch (error,s) {
+      print(error);
+      print(s);
       return ProductsResponse.withError(_handleError(TypeError()));
     }
   }

@@ -63,7 +63,9 @@ class _RelatedProductsWidgetState extends State<RelatedProductsWidget> {
         Text((
             AppLocalizations.of(context)!.translate("You may also like")
         )!.toUpperCase(),
-            style: Theme.of(context).textTheme.subtitle1),
+            style: TextStyle(fontFamily: "MontserratSemiBold"),
+            // Theme.of(context).textTheme.subtitle1
+        ),
         const SizedBox(
           height: 16.0,
         ),
@@ -72,6 +74,7 @@ class _RelatedProductsWidgetState extends State<RelatedProductsWidget> {
             switch (state.status) {
               case ProductsStatus.success:
                 return GridView.builder(
+
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

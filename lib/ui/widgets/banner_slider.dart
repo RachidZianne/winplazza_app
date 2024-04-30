@@ -1,3 +1,7 @@
+
+
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -53,13 +57,14 @@ class _BannerSliderState extends State<BannerSlider> {
             bloc: bannersBloc,
             builder: (context, state) {
               if (state is BannersLoaded) {
+               print("RRRRRRRRRRRRRRRRRRRRRRRR bbbbbbbbbbbbbbbbbbbbbbbbbb ${json.encode(state.bannersResponse.data)}");
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(AppStyles.CARD_RADIUS),
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
                       AspectRatio(
-                        aspectRatio: 1.4/1,
+                        aspectRatio: 1.8/1,
                         child: CarouselSlider.builder(
                           options: CarouselOptions(
                             autoPlay: true,
@@ -140,7 +145,9 @@ class _BannerSliderState extends State<BannerSlider> {
                                 },
                                 child: SizedBox(
                                     width: double.maxFinite,
-                                    child: getDefaultBanner(state.bannersResponse.data![index])));
+                                    child: getDefaultBanner(state.bannersResponse.data![index]))
+
+                            );
                           },
                           itemCount: state.bannersResponse.data?.length,
                         ),

@@ -769,10 +769,10 @@ class ProductsStock {
       this.discountPrice});
 
   ProductsStock.fromJson(Map<String, dynamic> json) {
-    productId = json['product_id'];
+    productId = json['product_id'].toString();
     productCombinationId = json['product_combination_id'];
     productType = json['product_type'];
-    warehouseId = json['warehouse_id'];
+    warehouseId = json['warehouse_id'].toString();
     stockIn = json['stock_in'];
     stockOut = json['stock_out'];
     remainingStock = json['remaining_stock'];

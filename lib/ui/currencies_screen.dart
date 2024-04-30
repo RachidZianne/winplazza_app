@@ -90,7 +90,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                           child: state1.currenciesResponse.data![index].currencyId == state.currency.currencyId ?
                           Container(
                             padding: const EdgeInsets.all(10),
-                            color: Theme.of(context).primaryColor,
+                            color: Colors.black,
                             child: Text("${state1.currenciesResponse.data![index].title} (${state1.currenciesResponse.data![index].code})",style: const TextStyle(color: Colors.white),),
                           ): Container(
                             padding: const EdgeInsets.all(10),

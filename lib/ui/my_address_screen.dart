@@ -52,15 +52,15 @@ class _ShippingState extends State<MyAddressScreen> {
           centerTitle: true,
           iconTheme: IconThemeData(
             color:AppConfig.APP_BAR_COLOR == 1 ?
-            Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
+            Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black :
             Colors.white,
           ),
-          backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+          backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.white,
           title: Text(
             AppLocalizations.of(context)!.translate("Address book")!,
             style: TextStyle(
               color:AppConfig.APP_BAR_COLOR == 1 ?
-              Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
+              Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black :
               Colors.white,
             ),),
           elevation: 0.0,
@@ -117,7 +117,7 @@ class _ShippingState extends State<MyAddressScreen> {
                     child: Container(
                       decoration: AppConfig.APP_BAR_COLOR == 2 ?
                       BoxDecoration(
-                        border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
+                        border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.black,),
                         borderRadius: const BorderRadius.all(
                             Radius.circular( AppStyles.CARD_RADIUS) //                 <--- border radius here
                         ),
@@ -133,8 +133,8 @@ class _ShippingState extends State<MyAddressScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AppConfig.APP_BAR_COLOR == 2 ?
-                          Icon(Icons.add,color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,):
-                          Icon(Icons.add,color:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
+                          Icon(Icons.add,color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.black,):
+                          Icon(Icons.add,color:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.black,),
                           const SizedBox(
                             width: 10,
                           ),

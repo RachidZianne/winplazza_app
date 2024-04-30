@@ -55,7 +55,8 @@ class _FavFragmentState extends State<FavFragment> {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL,
-                    vertical: AppStyles.SCREEN_MARGIN_VERTICAL),
+                    // vertical: AppStyles.SCREEN_MARGIN_VERTICAL
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

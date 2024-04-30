@@ -88,6 +88,7 @@ class _ShippingState extends State<SearchScreen> {
         centerTitle: true,
         title: Text(
           AppLocalizations.of(context)!.translate("Search")!,
+
           style: TextStyle(
             color:AppConfig.APP_BAR_COLOR == 1 ?
                     Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black :
@@ -101,7 +102,7 @@ class _ShippingState extends State<SearchScreen> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+        backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.white,
         elevation: 0.0,
       ): null,
       body: Column(
@@ -110,13 +111,13 @@ class _ShippingState extends State<SearchScreen> {
           AppConfig.APP_BAR_COLOR == 1 ?
           MyAppBar(
             centerWidget: Container(
-              height: 35.0,
+              height: 50.0,
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
                 color: AppStyles.COLOR_SEARCH_BAR,
                 borderRadius:
-                BorderRadius.all(Radius.circular(AppStyles.CARD_RADIUS)),
+                BorderRadius.all(Radius.circular(30)),
               ),
               child: Row(
                 children: [

@@ -1,4 +1,4 @@
-package com.company.namal
+package com.abc.winplaza
 
 import io.flutter.embedding.android.FlutterActivity
 

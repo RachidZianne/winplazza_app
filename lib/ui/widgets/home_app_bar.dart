@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_kundol/blocs/cart/cart_bloc.dart';
 import 'package:flutter_kundol/constants/app_config.dart';
 import 'package:flutter_kundol/constants/app_data.dart';
+import 'package:flutter_kundol/main.dart';
 import 'package:flutter_kundol/repos/cart_repo.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../blocs/products_search/products_search_bloc.dart';
@@ -150,8 +151,8 @@ var BadgeCounter=0;
           child: GestureDetector(
             onTap: () => widget.openDrawer(),
             child: Container(
-                width: 30,
-                height: 30,
+                width: 35,
+                height: 35,
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.all(Radius.circular(6))),
@@ -163,26 +164,33 @@ var BadgeCounter=0;
           ),
         ),
         centerWidget: Center(
-            child: Text(
-              "RAWAL",
-              //  AppLocalizations.of(context).translate('app_name'),
-              style: TextStyle(
-                  color:AppConfig.APP_BAR_COLOR == 1 ?
-                  Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black :
-                  Colors.white,
-                  fontSize: 16.0,
-                  fontFamily: "MontserratSemiBold"),
-            )),
+
+          child: Image.network(AppConfig.ECOMMERCE_URL + app_logo_backend, fit: BoxFit.fill,),
+            // child: Text(
+            //   "RAWAL",
+            //   //  AppLocalizations.of(context).translate('app_name'),
+            //   style: TextStyle(
+            //       color:AppConfig.APP_BAR_COLOR == 1 ?
+            //       Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black :
+            //       Colors.white,
+            //       fontSize: 18.0,
+            //       fontWeight: FontWeight.bold,
+            //       // fontFamily: "MontserratSemiBold"
+            //   ),
+            // )
+        ),
         trailingWidget:
         Padding(
           padding: EdgeInsets.all(3.0),
           child: Row(
             children: [
               GestureDetector(
-                onTap: () => widget.navigateToNext(BlocProvider(
-                  create: (context) => ProductsSearchBloc(RealProductsRepo()),
-                  child: SearchScreen(widget.navigateToNext),
-                )),
+                onTap: () {
+                  widget.navigateToNext(BlocProvider(
+                    create: (context) => ProductsSearchBloc(RealProductsRepo()),
+                    child: SearchScreen(widget.navigateToNext),
+                  ));
+                },
                 child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: SvgPicture.asset("assets/icons/ic_search.svg",
@@ -383,5 +391,7 @@ int count=0;
     BadgeCounter=result;
     return result;
   }
+
+
 }
 
