@@ -2,7 +2,9 @@ name: Flutter Build Workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
+      - ehtisham
   pull_request:
     branches: [ main ]
   repository_dispatch:
