@@ -514,7 +514,7 @@ class MeFragment extends StatelessWidget {
                                 horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
                             child: Row(
 
-                              // kkkk
+
                               children: [
                                 Container(
                                   width: 60.0,

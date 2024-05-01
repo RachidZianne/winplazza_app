@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_kundol/blocs/auth/auth_bloc.dart';
@@ -452,46 +452,46 @@ class SignUpScreen extends StatelessWidget {
     ));
   }
 
-  void doGoogleLogin(BuildContext context) {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    try {
-      signInWithGoogle(context, googleSignIn, auth);
-    } on Exception catch (error) {
-      print(error);
-    }
-  }
+  // void doGoogleLogin(BuildContext context) {
+  //   final FirebaseAuth auth = FirebaseAuth.instance;
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   try {
+  //     signInWithGoogle(context, googleSignIn, auth);
+  //   } on Exception catch (error) {
+  //     print(error);
+  //   }
+  // }
 
-  void signInWithGoogle(BuildContext context, GoogleSignIn googleSignIn,
-      FirebaseAuth auth) async {
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
-    String? accessToken = googleSignInAuthentication.accessToken;
-
-    print("Google AccessToken :  $accessToken");
-
-    BlocProvider.of<AuthBloc>(context).add(PerformGoogleLogin(accessToken!));
-
-    /*final credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-
-    UserCredential authResult = await _auth.signInWithCredential(credential);
-
-    var _user = authResult.user;
-    assert(!_user.isAnonymous);
-    assert(await _user.getIdToken() != null);
-    User currentUser = _auth.currentUser;
-    assert(_user.uid == currentUser.uid);
-    //model.state =ViewState.Idle;
-    print("User Name: ${_user.displayName}");
-    print("User Email ${_user.email}");
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);*/
-  }
+  // void signInWithGoogle(BuildContext context, GoogleSignIn googleSignIn,
+  //     FirebaseAuth auth) async {
+  //   final GoogleSignInAccount? googleSignInAccount =
+  //       await googleSignIn.signIn();
+  //   final GoogleSignInAuthentication googleSignInAuthentication =
+  //       await googleSignInAccount!.authentication;
+  //   String? accessToken = googleSignInAuthentication.accessToken;
+  //
+  //   print("Google AccessToken :  $accessToken");
+  //
+  //   BlocProvider.of<AuthBloc>(context).add(PerformGoogleLogin(accessToken!));
+  //
+  //   /*final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleSignInAuthentication.accessToken,
+  //     idToken: googleSignInAuthentication.idToken,
+  //   );
+  //
+  //   UserCredential authResult = await _auth.signInWithCredential(credential);
+  //
+  //   var _user = authResult.user;
+  //   assert(!_user.isAnonymous);
+  //   assert(await _user.getIdToken() != null);
+  //   User currentUser = _auth.currentUser;
+  //   assert(_user.uid == currentUser.uid);
+  //   //model.state =ViewState.Idle;
+  //   print("User Name: ${_user.displayName}");
+  //   print("User Email ${_user.email}");
+  //
+  //   return await FirebaseAuth.instance.signInWithCredential(credential);*/
+  // }
 
   void signInFB(BuildContext context) async {
     final fb = FacebookLogin();
