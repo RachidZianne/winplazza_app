@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_kundol/initial_splash_modal.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +42,7 @@ import 'blocs/language/language_bloc.dart';
 void main() async {
   //debugPaintSizeEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   //Remove this method to stop OneSignal Debugging
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
