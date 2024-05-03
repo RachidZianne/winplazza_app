@@ -70,7 +70,7 @@ class _AddAddressState extends State<AddAddressBookScreen> {
         backgroundColor: Theme.of(context).cardColor,
         title:
         Text(
-            AppLocalizations.of(context)!.translate("Add Address")!,
+            AppLocalizations.of(context).translate("Add Address"),
             style: Theme.of(context).textTheme.headline6),
         elevation: 0.0,
       ):
@@ -81,7 +81,7 @@ class _AddAddressState extends State<AddAddressBookScreen> {
         backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
         title:
         Text(
-            AppLocalizations.of(context)!.translate("Add Address")!,
+            AppLocalizations.of(context).translate("Add Address"),
             style: TextStyle(
               color: Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white
             )),
@@ -188,9 +188,9 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8),
                           child: Row(
                             children: [
-                              Text("*"),
+                              const Text("*"),
                               Text(
-                                  AppLocalizations.of(context)!.translate("First Name").toString()
+                                  AppLocalizations.of(context).translate("First Name").toString()
                               ),
                             ],
                           )),
@@ -211,7 +211,7 @@ CountryId countryId = CountryId();
                             controller: _firstNameController,
                             decoration: InputDecoration(
                               hintText:
-                                AppLocalizations.of(context)!.translate("First Name").toString(),
+                                AppLocalizations.of(context).translate("First Name").toString(),
                         hintStyle:
                               TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
@@ -219,7 +219,7 @@ CountryId countryId = CountryId();
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context)!.translate('Please enter Your First name').toString();
+                                  AppLocalizations.of(context).translate('Please enter Your First name').toString();
                               }
                               return null;
                             },
@@ -230,9 +230,9 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              Text("*"),
+                              const Text("*"),
                               Text(
-                                  AppLocalizations.of(context)!.translate("Last Name").toString()
+                                  AppLocalizations.of(context).translate("Last Name").toString()
                               ),
                             ],
                           )),
@@ -252,7 +252,7 @@ CountryId countryId = CountryId();
                           child: TextFormField(
                             controller: _lastNameController,
                             decoration:  InputDecoration(
-                              hintText:AppLocalizations.of(context)!.translate("Last Name").toString(),
+                              hintText:AppLocalizations.of(context).translate("Last Name").toString(),
                                 hintStyle:
                               TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 12),
                               border: InputBorder.none,
@@ -260,7 +260,7 @@ CountryId countryId = CountryId();
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context)!.translate('Please enter Your Last Name').toString();
+                                  AppLocalizations.of(context).translate('Please enter Your Last Name').toString();
                               }
                               return null;
                             },
@@ -271,9 +271,9 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              Text("*"),
+                              const Text("*"),
                               Text(
-                                AppLocalizations.of(context)!.translate("Country").toString(),
+                                AppLocalizations.of(context).translate("Country").toString(),
                               ),
                             ],
                           )),
@@ -283,7 +283,7 @@ CountryId countryId = CountryId();
                             List<Countryy> countryDataList =
                                 country.countryyData;
                             Countryy otherCountryData = Countryy();
-                            otherCountryData.countryName =AppLocalizations.of(context)!.translate("Other").toString();
+                            otherCountryData.countryName =AppLocalizations.of(context).translate("Other").toString();
                             otherCountryData.countryId = 0;
                            // otherCountryData.states = [];
                             countryDataList.add(otherCountryData);
@@ -303,18 +303,18 @@ CountryId countryId = CountryId();
                                     child: SizedBox(
                                       height:45,
                                       child: DropdownSearch<Countryy>(
-                                        mode: Mode.DIALOG,
-                                        dropDownButton: const Text(""),
-                                        showSearchBox: true,
+                                        // mode: Mode.DIALOG,
+                                        // dropDownButton: const Text(""),
+                                        // showSearchBox: true,
                                         items: country.countryyData,
-                                        dropdownSearchDecoration: InputDecoration(
-                                          hintText:
-                                          AppLocalizations.of(context)!.translate("Country").toString(),
-                                          contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
-                                          hintStyle: TextStyle(
-                                              color: Colors.grey[400], fontSize: 14),
-                                          border: InputBorder.none,
-                                        ),
+                                        // dropdownSearchDecoration: InputDecoration(
+                                        //   hintText:
+                                        //   AppLocalizations.of(context).translate("Country").toString(),
+                                        //   contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
+                                        //   hintStyle: TextStyle(
+                                        //       color: Colors.grey[400], fontSize: 14),
+                                        //   border: InputBorder.none,
+                                        // ),
                                         itemAsString: (Countryy? u) =>
                                             u!.countryName!,
                                         onChanged: (value) {
@@ -440,7 +440,7 @@ CountryId countryId = CountryId();
                               backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
                             ),);
                           }
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                           // else {
                           //   return Center(child: Text(
                           //       AppLocalizations.of(context)!.translate("Something went wrong")!
@@ -456,9 +456,9 @@ CountryId countryId = CountryId();
                               padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                               child: Row(
                                 children: [
-                                  Text("*"),
+                                  const Text("*"),
                                   Text(
-                                    AppLocalizations.of(context)!.translate("State").toString(),
+                                    AppLocalizations.of(context).translate("State").toString(),
                                   ),
                                 ],
                               )),
@@ -469,7 +469,7 @@ CountryId countryId = CountryId();
                                       state.stateeData;
                                   Statee otherstateData = Statee();
                                   otherstateData.name =
-                                  AppLocalizations.of(context)!.translate("Other").toString();
+                                  AppLocalizations.of(context).translate("Other").toString();
                                   otherstateData.countryId = 0;
                                   // otherCountryData.states = [];
                                   stateDataList.add(otherstateData);
@@ -490,18 +490,18 @@ CountryId countryId = CountryId();
                                             child: SizedBox(
                                               height:45,
                                               child: DropdownSearch<Statee>(
-                                                mode: Mode.DIALOG,
-                                                dropDownButton: const Text(""),
-                                                showSearchBox: true,
+                                                // mode: Mode.DIALOG,
+                                                // dropDownButton: const Text(""),
+                                                // showSearchBox: true,
                                                 items: state.stateeData,
-                                                dropdownSearchDecoration: InputDecoration(
-                                                  hintText:
-                                                  AppLocalizations.of(context)!.translate("State").toString(),
-                                                  contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.grey[400], fontSize: 14),
-                                                  border: InputBorder.none,
-                                                ),
+                                                // dropdownSearchDecoration: InputDecoration(
+                                                //   hintText:
+                                                //   AppLocalizations.of(context).translate("State").toString(),
+                                                //   contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
+                                                //   hintStyle: TextStyle(
+                                                //       color: Colors.grey[400], fontSize: 14),
+                                                //   border: InputBorder.none,
+                                                // ),
                                                 itemAsString: (Statee? u) =>
                                                 u!.name!,
                                                 onChanged: (value) {
@@ -525,7 +525,7 @@ CountryId countryId = CountryId();
                                       )
                                   );
                                 }
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               } ),
                         ],),
                       if (selectedState != null)
@@ -536,9 +536,9 @@ CountryId countryId = CountryId();
                               padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                               child: Row(
                                 children: [
-                                  Text("*"),
+                                  const Text("*"),
                                   Text(
-                                    AppLocalizations.of(context)!.translate("City").toString(),
+                                    AppLocalizations.of(context).translate("City").toString(),
                                   ),
                                 ],
                               )),
@@ -549,7 +549,7 @@ CountryId countryId = CountryId();
                                       city.cityyData;
                                   Cityy othercityData = Cityy();
                                   othercityData.name =
-                                  AppLocalizations.of(context)!.translate("Other").toString();
+                                  AppLocalizations.of(context).translate("Other").toString();
                                   othercityData.countryId = 0;
                                   // otherCountryData.states = [];
                                   cityyDataList.add(othercityData);
@@ -570,18 +570,18 @@ CountryId countryId = CountryId();
                                             child: SizedBox(
                                               height:45,
                                               child: DropdownSearch<Cityy>(
-                                                mode: Mode.DIALOG,
-                                                dropDownButton: const Text(""),
-                                                showSearchBox: true,
+                                                // mode: Mode.DIALOG,
+                                                // dropDownButton: const Text(""),
+                                                // showSearchBox: true,
                                                 items: city.cityyData,
-                                                dropdownSearchDecoration: InputDecoration(
-                                                  hintText:
-                                                  AppLocalizations.of(context)!.translate("City").toString(),
-                                                  contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.grey[400], fontSize: 14),
-                                                  border: InputBorder.none,
-                                                ),
+                                                // dropdownSearchDecoration: InputDecoration(
+                                                //   hintText:
+                                                //   AppLocalizations.of(context).translate("City").toString(),
+                                                //   contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
+                                                //   hintStyle: TextStyle(
+                                                //       color: Colors.grey[400], fontSize: 14),
+                                                //   border: InputBorder.none,
+                                                // ),
                                                 itemAsString: (Cityy? u) =>
                                                 u!.name!,
                                                 onChanged: (value) {
@@ -602,19 +602,19 @@ CountryId countryId = CountryId();
                                       )
                                   );
                                 }
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               } ),
                         ],
                       ),
 
                        Padding(
-                          padding: EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
+                          padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           // child: Text(
                              //   AppLocalizations.of(context)!.translate("Pick Location").toString(),
                            //   ),),
                           child: Row(
                             children: [
-                              Text("*"),
+                              const Text("*"),
                               Text(
                                  AppLocalizations.of(context).translate("Pick Location").toString(),
                                 ),
@@ -676,10 +676,10 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              Text("*"),
+                              const Text("*"),
                               Text(
                               //  "Address"
-                                  AppLocalizations.of(context)!.translate("Address").toString()
+                                  AppLocalizations.of(context).translate("Address").toString()
                               ),
                             ],
                           )),
@@ -700,14 +700,14 @@ CountryId countryId = CountryId();
                             controller: _addressController,
                             decoration: InputDecoration(
                               hintText:
-                              AppLocalizations.of(context)!.translate("Address").toString(),
+                              AppLocalizations.of(context).translate("Address").toString(),
                               hintStyle: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context)!.translate('Please enter Your Address').toString();
+                                  AppLocalizations.of(context).translate('Please enter Your Address').toString();
                               }
                               return null;
                             },
@@ -754,9 +754,9 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              Text("*"),
+                              const Text("*"),
                               Text(
-                                  AppLocalizations.of(context)!.translate("Phone").toString()
+                                  AppLocalizations.of(context).translate("Phone").toString()
                               ),
                             ],
                           )),
@@ -777,14 +777,14 @@ CountryId countryId = CountryId();
                             controller: _phoneController,
                             decoration: InputDecoration(
                               hintText:
-                              AppLocalizations.of(context)!.translate("Phone").toString(),
+                              AppLocalizations.of(context).translate("Phone").toString(),
                               hintStyle: TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context)!.translate('Please enter Your Phone').toString();
+                                  AppLocalizations.of(context).translate('Please enter Your Phone').toString();
                               }
                               return null;
                             },
@@ -795,9 +795,9 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              Text("*"),
+                              const Text("*"),
                               Text(
-                                  AppLocalizations.of(context)!.translate("Post Code").toString()
+                                  AppLocalizations.of(context).translate("Post Code").toString()
                               ),
                             ],
                           )),
@@ -818,14 +818,14 @@ CountryId countryId = CountryId();
                             controller: _postCodeController,
                             decoration: InputDecoration(
                               hintText:
-                              AppLocalizations.of(context)!.translate("Post Code").toString(),
+                              AppLocalizations.of(context).translate("Post Code").toString(),
                               hintStyle: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context)!.translate('Please enter Your Zip Code').toString();
+                                  AppLocalizations.of(context).translate('Please enter Your Zip Code').toString();
                               }
                               return null;
                             },

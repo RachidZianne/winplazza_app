@@ -108,7 +108,6 @@ class ApiProvider {
   Future<ProductsResponse> getProducts(int pageNo) async {
     try {
       Response response = await _dio!.get("${_baseUrl}products?limit=10&getCategory=1&getDetail=1&language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}&stock=1&sortType=ASC&page=$pageNo");
-      print(response);
       var re = ProductsResponse.fromJson(response.data);
       return re;
     } catch (error) {
@@ -188,7 +187,6 @@ class ApiProvider {
     try {
 
       Response response = await _dio!.get("${_baseUrl}country?getAllData=1&language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}");
-      print("country response ${response.data}");
       return CountryyResponse.fromJson(response.data);
     } catch (error) {
       return CountryyResponse.withError(_handleError(error as TypeError));
@@ -200,7 +198,6 @@ class ApiProvider {
     try {
 
       Response response = await _dio!.get("${_baseUrl}state?country_id=${value}&getAllData=1&language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}");
-      print("state response ${response.data}");
       return StateeResponse.fromJson(response.data);
     } catch (error) {
       return StateeResponse.withError(_handleError(error as TypeError));
@@ -212,7 +209,6 @@ class ApiProvider {
     try {
 
       Response response = await _dio!.get("${_baseUrl}city?state_id=${countryvalue}&getAllData=1&language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}");
-      print("Cityy response ${response.data}");
       return CityyResponse.fromJson(response.data);
     } catch (error) {
       return CityyResponse.withError(_handleError(error as TypeError));
@@ -224,7 +220,6 @@ class ApiProvider {
     try {
 
       Response response = await _dio!.get("${_baseUrl}wallet?language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}");
-      print("wallet response ${response.data}");
       return WalletResponse.fromJson(response.data);
     } catch (error) {
       return WalletResponse.withError(_handleError(error as TypeError));
@@ -234,7 +229,6 @@ class ApiProvider {
   Future<TotalResponse> getTotal() async {
    // try {
       Response response = await _dio!.get("${_baseUrl}wallet?language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}&total=1");
-      print("total response ${response.data}");
       return TotalResponse.fromJson(response.data);
    // } catch (error) {
     //  return TotalResponse.withError(_handleError(error as TypeError));
@@ -273,7 +267,6 @@ Future<ShipmentCitysResponse> getShipment(String? city) async {
   Future<RewardnResponse> getRewardn() async {
     try {
       Response response = await _dio!.get("${_baseUrl}points?language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}&sum=1");
-      print("reward response ${response.data}");
       return RewardnResponse.fromJson(response.data);
     } catch (error) {
       return null!;
@@ -284,7 +277,6 @@ Future<ShipmentCitysResponse> getShipment(String? city) async {
   Future<RewardDes> getRewarddes() async {
     try {
       Response response = await _dio!.get("${_baseUrl}points?language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}");
-      print("reward_des response ${response.data}");
       return RewardDes.fromJson(response.data);
     } catch (error) {
       return null!;
@@ -324,17 +316,7 @@ Future<ShipmentCitysResponse> getShipment(String? city) async {
   Future<ProductsResponse> getProductsByCat(int pageNo, String categoryId,
       String sortBy, String sortType, String filters) async {
     try {
-      Response response = await _dio!.get(_baseUrl +
-          "products?limit=10&getCategory=1&getDetail=1&language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}&stock=1&sortType=" +
-          sortType +
-          "&page=" +
-          pageNo.toString() +
-          "&productCategories=" +
-          categoryId.toString() +
-          "&sortBy=" +
-          sortBy +
-          "&variations=" +
-          filters);
+      Response response = await _dio!.get("${_baseUrl}products?limit=10&getCategory=1&getDetail=1&language_id=${AppData.language?.id}&currency=${AppData.currency?.currencyId}&stock=1&sortType=$sortType&page=$pageNo&productCategories=$categoryId&sortBy=$sortBy&variations=$filters");
       var re = ProductsResponse.fromJson(response.data);
       return re;
     } catch (error) {
@@ -396,7 +378,6 @@ Future<ShipmentCitysResponse> getShipment(String? city) async {
   Future<LogoutResponse> doLogout() async {
     try {
       Response response = await _dio!.post("${_baseUrl}customer_logout");
-      print(response);
       return LogoutResponse.fromJson(response.data);
     } catch (error) {
       return LogoutResponse.withError(_handleError(error as TypeError));
@@ -406,20 +387,11 @@ Future<ShipmentCitysResponse> getShipment(String? city) async {
   Future<AddToCartResponse> addToCart(
       int productId, int qty, int? combinationId) async {
     try {
-      Response response = await _dio!.post(_baseUrl +
-          "cart" +
-          ((AppData.user == null) ? "/guest/store" : "") +
-          "?currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}&product_id=" +
-          productId.toString() +
-          "&qty=" +
-          qty.toString() +
-          "&product_combination_id=" +
-          ((combinationId == null) ? "" : combinationId.toString()) +
-          (AppData.sessionId == null
+      Response response = await _dio!.post("${_baseUrl}cart${(AppData.user == null) ? "/guest/store" : ""}?currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}&product_id=$productId&qty=$qty&product_combination_id=${(combinationId == null) ? "" : combinationId.toString()}${AppData.sessionId == null
               ? ""
-              : "&session_id=" + AppData.sessionId!));
+              : "&session_id=${AppData.sessionId!}"}");
     //  AppBadge.BadgeUpdate(response.data);
-this.getCart();
+getCart();
       return AddToCartResponse.fromJson(response.data);
     } catch (error) {
       return AddToCartResponse.withError(_handleError(error as TypeError));
@@ -428,10 +400,7 @@ this.getCart();
 
   Future<CouponResponse> applyCoupon(String coupon) async {
     try {
-      Response response = await _dio!.post(_baseUrl +
-          "coupon?coupon_code=" +
-          coupon +
-          "&currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
+      Response response = await _dio!.post("${_baseUrl}coupon?coupon_code=$coupon&currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
       return CouponResponse.fromJson(response.data);
     } catch (error) {
       return CouponResponse.withError(_handleError(error as TypeError));
@@ -441,11 +410,7 @@ this.getCart();
   Future<QuantityResponse> getQuantity(
       int productId, String productType, int combinationId) async {
     try {
-      Response response = await _dio!.get(_baseUrl +
-          "available_qty?product_id=" +
-          productId.toString() +
-          "&product_type=$productType" +
-          "&product_combination_id=$combinationId&currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
+      Response response = await _dio!.get("${_baseUrl}available_qty?product_id=$productId&product_type=$productType&product_combination_id=$combinationId&currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
       return QuantityResponse.fromJson(response.data);
     } catch (error) {
       return QuantityResponse.withError(_handleError(error as TypeError));
@@ -454,12 +419,9 @@ this.getCart();
 
   Future<CartResponse> getCart() async {
     try {
-      Response response = await _dio!.get(_baseUrl +
-          "cart" +
-          ((AppData.user == null)
-              ? "/guest/get?session_id=" + AppData.sessionId.toString() + "&"
-              : "?") +
-          "currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
+      Response response = await _dio!.get("${_baseUrl}cart${(AppData.user == null)
+              ? "/guest/get?session_id=${AppData.sessionId}&"
+              : "?"}currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
 
       return CartResponse.fromJson(response.data);
     } catch (error) {
@@ -470,17 +432,11 @@ this.getCart();
   Future<DeleteCartResponse> deleteCartItem(
       int? productId, int? combinationId) async {
     try {
-      Response response = await _dio!.delete(_baseUrl +
-          "cart" +
-          ((AppData.user == null)
-              ? "/guest/delete?session_id=" + AppData.sessionId! + "&"
-              : "/delete?") +
-          "product_id=" +
-          productId.toString() +
-          ((combinationId == null)
+      Response response = await _dio!.delete("${_baseUrl}cart${(AppData.user == null)
+              ? "/guest/delete?session_id=${AppData.sessionId!}&"
+              : "/delete?"}product_id=$productId${(combinationId == null)
               ? ""
-              : "&product_combination_id=" + combinationId.toString()) +
-          "&currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
+              : "&product_combination_id=$combinationId"}&currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
       return DeleteCartResponse.fromJson(response.data);
     } catch (error) {
       return DeleteCartResponse.withError(_handleError(error as TypeError));
@@ -490,8 +446,6 @@ this.getCart();
   Future<GetAddressResponse> getCustomerAddress() async {
     try {
       Response response = await _dio!.get("${_baseUrl}customer_address_book?currency=${AppData.currency?.currencyId}&language_id=${AppData.language?.id}");
-      print("get address response");
-      print(response);
       return GetAddressResponse.fromJson(response.data);
     }
     catch (error) {
@@ -543,7 +497,6 @@ this.getCart();
             "is_default": 1,
             "phone": phone,
           }));
-      print("add custumer adress response ${response}");
       return AddAddressResponse.fromJson(response.data);
     } catch (error) {
       return AddAddressResponse.withError(_handleError(error as TypeError));
@@ -587,7 +540,6 @@ this.getCart();
             "is_default": 1,
             "phone": phone,
           }));
-      print("update adress response ${response}");
       return AddAddressResponse.fromJson(response.data);
     } catch (error) {
       return AddAddressResponse.withError(_handleError(error as TypeError));
@@ -632,7 +584,6 @@ this.getCart();
             "is_default": 1,
             "phone": phone,
           }));
-      print("default adress response ${response}");
       return AddAddressResponse.fromJson(response.data);
     } catch (error) {
       return AddAddressResponse.withError(_handleError(error as TypeError));
@@ -768,8 +719,6 @@ this.getCart();
   }
 
   Future<GetWishlistOnStartResponse> likeProduct(int productId) async {
-    print("------wish---------");
-    print(GetWishlistOnStartResponse);
     try {
       Response response = await _dio!.post("${_baseUrl}wishlist?product_id=$productId&currency=${AppData.currency?.currencyId}");
       return GetWishlistOnStartResponse.fromJson(response.data);
@@ -884,7 +833,6 @@ this.getCart();
     try {
       Response response =
       await _dio!.get("${_baseUrl}payment_method");
-      print("Payment method response ${response}");
       return PaymentMethodsResponse.fromJson(response.data);
     } catch (error) {
       return PaymentMethodsResponse.withError(_handleError(error as TypeError));
@@ -919,8 +867,6 @@ this.getCart();
       }
     } else {
       errorDescription = error.toString();
-      print(error);
-      print(error.stackTrace);
     }
     return errorDescription;
   }
