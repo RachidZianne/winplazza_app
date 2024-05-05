@@ -25,8 +25,8 @@ jobs:
 
       - name: Install Flutter
         run: |
-          wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.7.12-stable.tar.xz
-          tar xf flutter_linux_3.7.12-stable.tar.xz -C $HOME
+          wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.13.0-stable.tar.xz
+          tar xf flutter_linux_3.13.0-stable.tar.xz -C $HOME
           echo "$HOME/flutter/bin" >> $GITHUB_PATH
 
       - name: Check Flutter Version and Doctor Output
