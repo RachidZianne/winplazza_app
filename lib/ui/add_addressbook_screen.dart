@@ -188,7 +188,7 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8),
                           child: Row(
                             children: [
-                              const Text("*"),
+                              Text("*"),
                               Text(
                                   AppLocalizations.of(context).translate("First Name").toString()
                               ),
@@ -230,7 +230,7 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              const Text("*"),
+                              Text("*"),
                               Text(
                                   AppLocalizations.of(context).translate("Last Name").toString()
                               ),
@@ -271,7 +271,7 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              const Text("*"),
+                              Text("*"),
                               Text(
                                 AppLocalizations.of(context).translate("Country").toString(),
                               ),
@@ -309,7 +309,7 @@ CountryId countryId = CountryId();
                                         items: country.countryyData,
                                         // dropdownSearchDecoration: InputDecoration(
                                         //   hintText:
-                                        //   AppLocalizations.of(context).translate("Country").toString(),
+                                        //   AppLocalizations.of(context)!.translate("Country").toString(),
                                         //   contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
                                         //   hintStyle: TextStyle(
                                         //       color: Colors.grey[400], fontSize: 14),
@@ -440,7 +440,7 @@ CountryId countryId = CountryId();
                               backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
                             ),);
                           }
-                          return const CircularProgressIndicator();
+                          return CircularProgressIndicator();
                           // else {
                           //   return Center(child: Text(
                           //       AppLocalizations.of(context)!.translate("Something went wrong")!
@@ -456,7 +456,7 @@ CountryId countryId = CountryId();
                               padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                               child: Row(
                                 children: [
-                                  const Text("*"),
+                                  Text("*"),
                                   Text(
                                     AppLocalizations.of(context).translate("State").toString(),
                                   ),
@@ -496,7 +496,7 @@ CountryId countryId = CountryId();
                                                 items: state.stateeData,
                                                 // dropdownSearchDecoration: InputDecoration(
                                                 //   hintText:
-                                                //   AppLocalizations.of(context).translate("State").toString(),
+                                                //   AppLocalizations.of(context)!.translate("State").toString(),
                                                 //   contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
                                                 //   hintStyle: TextStyle(
                                                 //       color: Colors.grey[400], fontSize: 14),
@@ -525,7 +525,7 @@ CountryId countryId = CountryId();
                                       )
                                   );
                                 }
-                                return const CircularProgressIndicator();
+                                return CircularProgressIndicator();
                               } ),
                         ],),
                       if (selectedState != null)
@@ -536,7 +536,7 @@ CountryId countryId = CountryId();
                               padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                               child: Row(
                                 children: [
-                                  const Text("*"),
+                                  Text("*"),
                                   Text(
                                     AppLocalizations.of(context).translate("City").toString(),
                                   ),
@@ -576,7 +576,7 @@ CountryId countryId = CountryId();
                                                 items: city.cityyData,
                                                 // dropdownSearchDecoration: InputDecoration(
                                                 //   hintText:
-                                                //   AppLocalizations.of(context).translate("City").toString(),
+                                                //   AppLocalizations.of(context)!.translate("City").toString(),
                                                 //   contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
                                                 //   hintStyle: TextStyle(
                                                 //       color: Colors.grey[400], fontSize: 14),
@@ -602,19 +602,19 @@ CountryId countryId = CountryId();
                                       )
                                   );
                                 }
-                                return const CircularProgressIndicator();
+                                return CircularProgressIndicator();
                               } ),
                         ],
                       ),
 
                        Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
+                          padding: EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           // child: Text(
                              //   AppLocalizations.of(context)!.translate("Pick Location").toString(),
                            //   ),),
                           child: Row(
                             children: [
-                              const Text("*"),
+                              Text("*"),
                               Text(
                                  AppLocalizations.of(context).translate("Pick Location").toString(),
                                 ),
@@ -676,7 +676,7 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              const Text("*"),
+                              Text("*"),
                               Text(
                               //  "Address"
                                   AppLocalizations.of(context).translate("Address").toString()
@@ -754,7 +754,7 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              const Text("*"),
+                              Text("*"),
                               Text(
                                   AppLocalizations.of(context).translate("Phone").toString()
                               ),
@@ -795,7 +795,7 @@ CountryId countryId = CountryId();
                           padding: const EdgeInsets.only(left: 15, right: 15,bottom: 8,top: 8),
                           child: Row(
                             children: [
-                              const Text("*"),
+                              Text("*"),
                               Text(
                                   AppLocalizations.of(context).translate("Post Code").toString()
                               ),

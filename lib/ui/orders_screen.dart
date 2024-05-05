@@ -82,15 +82,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   centerTitle: true,
                   iconTheme: IconThemeData(
                     color:AppConfig.APP_BAR_COLOR == 1 ?
-                    Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
+                    Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black :
                     Colors.white,
                   ),
-                  backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+                  backgroundColor:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.white
+                  ,
                   title: Text(
                     AppLocalizations.of(context).translate("Orders"),
                     style: TextStyle(
                       color:AppConfig.APP_BAR_COLOR == 1 ?
-                      Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.white :
+                      Theme.of(context).brightness == Brightness.dark ? Colors.black : Colors.black :
                       Colors.white,
                     ),),
                   elevation: 0.0,
@@ -99,8 +100,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicator: BubbleTabIndicator(
                         indicatorHeight: 34.0,
-                        indicatorRadius: 12,
-                        indicatorColor:   Theme.of(context).primaryColor,
+                        indicatorRadius: 16,
+                        indicatorColor:   Colors.black,
                         tabBarIndicatorSize: TabBarIndicatorSize.tab,
                         // Other flags
                         // indicatorRadius: 1,
@@ -117,7 +118,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       Theme.of(context).brightness == Brightness.dark
                           ? AppStyles.COLOR_GREY_DARK
                           : AppStyles.COLOR_GREY_LIGHT,
-                      // labelColor: Theme.of(context).primaryColor,
+                       // labelColor: Theme.of(context).primaryColor,
                       tabs: [
                         Tab(text: AppLocalizations.of(context).translate("In Progress",)
                         ),
@@ -139,7 +140,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
             return Center(
               child: CircularProgressIndicator(
                 color: Colors.white,
-                backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+                backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.black,
               ),
             );
           }

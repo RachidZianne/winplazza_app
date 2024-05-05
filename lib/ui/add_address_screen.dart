@@ -187,7 +187,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             children: [
                               const Text("*"),
                               Text(
-                                  AppLocalizations.of(context).translate("First Name").toString()
+                                  AppLocalizations.of(context)!.translate("First Name").toString()
                               ),
                             ],
                           )),
@@ -208,7 +208,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             controller: _firstNameController,
                             decoration: InputDecoration(
                               hintText:
-                                AppLocalizations.of(context).translate("First Name").toString(),
+                                AppLocalizations.of(context)!.translate("First Name").toString(),
                         hintStyle:
                               TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
@@ -216,7 +216,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context).translate('Please enter Your First name').toString();
+                                  AppLocalizations.of(context)!.translate('Please enter Your First name').toString();
                               }
                               return null;
                             },
@@ -229,7 +229,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             children: [
                               const Text("*"),
                               Text(
-                                  AppLocalizations.of(context).translate("Last Name").toString()
+                                  AppLocalizations.of(context)!.translate("Last Name").toString()
                               ),
                             ],
                           )),
@@ -249,7 +249,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                           child: TextFormField(
                             controller: _lastNameController,
                             decoration:  InputDecoration(
-                              hintText:AppLocalizations.of(context).translate("Last Name").toString(),
+                              hintText:AppLocalizations.of(context)!.translate("Last Name").toString(),
                                 hintStyle:
                               TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 12),
                               border: InputBorder.none,
@@ -257,7 +257,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context).translate('Please enter Your Last Name').toString();
+                                  AppLocalizations.of(context)!.translate('Please enter Your Last Name').toString();
                               }
                               return null;
                             },
@@ -270,7 +270,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             children: [
                               const Text("*"),
                               Text(
-                                AppLocalizations.of(context).translate("Country").toString(),
+                                AppLocalizations.of(context)!.translate("Country").toString(),
                               ),
                             ],
                           )),
@@ -280,7 +280,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             List<Countryy> countryDataList =
                                 country.countryyData;
                             Countryy otherCountryData = Countryy();
-                            otherCountryData.countryName =AppLocalizations.of(context).translate("Other").toString();
+                            otherCountryData.countryName =AppLocalizations.of(context)!.translate("Other").toString();
                             otherCountryData.countryId = 0;
                            // otherCountryData.states = [];
                             countryDataList.add(otherCountryData);
@@ -455,7 +455,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                                 children: [
                                   const Text("*"),
                                   Text(
-                                    AppLocalizations.of(context).translate("State").toString(),
+                                    AppLocalizations.of(context)!.translate("State").toString(),
                                   ),
                                 ],
                               )),
@@ -466,7 +466,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                                       state.stateeData;
                                   Statee otherstateData = Statee();
                                   otherstateData.name =
-                                  AppLocalizations.of(context).translate("Other").toString();
+                                  AppLocalizations.of(context)!.translate("Other").toString();
                                   otherstateData.countryId = 0;
                                   // otherCountryData.states = [];
                                   stateDataList.add(otherstateData);
@@ -487,11 +487,11 @@ class _AddAddressState extends State<AddAddressScreen> {
                                             child: SizedBox(
                                               height:45,
                                               child: DropdownSearch<Statee>(
-                                                // mode: Mode.DIALOG,
-                                                // dropDownButton: const Text(""),
-                                                // showSearchBox: true,
+                                                //mode: Mode.DIALOG,
+                                               // dropDownButton: const Text(""),
+                                                //showSearchBox: true,
                                                 items: state.stateeData,
-                                                // dropdownSearchDecoration: InputDecoration(
+                                                // decoration: InputDecoration(
                                                 //   hintText:
                                                 //   AppLocalizations.of(context)!.translate("State").toString(),
                                                 //   contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
@@ -546,7 +546,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                                       city.cityyData;
                                   Cityy othercityData = Cityy();
                                   othercityData.name =
-                                  AppLocalizations.of(context).translate("Other").toString();
+                                  AppLocalizations.of(context)!.translate("Other").toString();
                                   othercityData.countryId = 0;
                                   // otherCountryData.states = [];
                                   cityyDataList.add(othercityData);
@@ -676,7 +676,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                               const Text("*"),
                               Text(
                               //  "Address"
-                                  AppLocalizations.of(context).translate("Address").toString()
+                                  AppLocalizations.of(context)!.translate("Address").toString()
                               ),
                             ],
                           )),
@@ -697,14 +697,14 @@ class _AddAddressState extends State<AddAddressScreen> {
                             controller: _addressController,
                             decoration: InputDecoration(
                               hintText:
-                              AppLocalizations.of(context).translate("Address").toString(),
+                              AppLocalizations.of(context)!.translate("Address").toString(),
                               hintStyle: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context).translate('Please enter Your Address').toString();
+                                  AppLocalizations.of(context)!.translate('Please enter Your Address').toString();
                               }
                               return null;
                             },
@@ -753,7 +753,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             children: [
                               const Text("*"),
                               Text(
-                                  AppLocalizations.of(context).translate("Phone").toString()
+                                  AppLocalizations.of(context)!.translate("Phone").toString()
                               ),
                             ],
                           )),
@@ -774,14 +774,14 @@ class _AddAddressState extends State<AddAddressScreen> {
                             controller: _phoneController,
                             decoration: InputDecoration(
                               hintText:
-                              AppLocalizations.of(context).translate("Phone").toString(),
+                              AppLocalizations.of(context)!.translate("Phone").toString(),
                               hintStyle: TextStyle(color:Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context).translate('Please enter Your Phone').toString();
+                                  AppLocalizations.of(context)!.translate('Please enter Your Phone').toString();
                               }
                               return null;
                             },
@@ -794,7 +794,7 @@ class _AddAddressState extends State<AddAddressScreen> {
                             children: [
                               const Text("*"),
                               Text(
-                                  AppLocalizations.of(context).translate("Post Code").toString()
+                                  AppLocalizations.of(context)!.translate("Post Code").toString()
                               ),
                             ],
                           )),
@@ -815,14 +815,14 @@ class _AddAddressState extends State<AddAddressScreen> {
                             controller: _postCodeController,
                             decoration: InputDecoration(
                               hintText:
-                              AppLocalizations.of(context).translate("Post Code").toString(),
+                              AppLocalizations.of(context)!.translate("Post Code").toString(),
                               hintStyle: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.grey, fontSize: 14),
                               border: InputBorder.none,
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return
-                                  AppLocalizations.of(context).translate('Please enter Your Zip Code').toString();
+                                  AppLocalizations.of(context)!.translate('Please enter Your Zip Code').toString();
                               }
                               return null;
                             },
@@ -874,7 +874,8 @@ class _AddAddressState extends State<AddAddressScreen> {
                     }
                   },
                   child: Text(
-                      AppLocalizations.of(context).translate("Save & Continue"))),
+                      AppLocalizations.of(context)!.translate("Save & Continue")!
+                  )),
 
             ),
           ],

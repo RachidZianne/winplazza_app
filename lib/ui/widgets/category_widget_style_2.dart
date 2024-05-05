@@ -16,80 +16,92 @@ class CategoryWidgetStyle2 extends StatelessWidget {
   final List<Category> parentCategories;
   final Function(Widget widget) navigateToNext;
 
-  const CategoryWidgetStyle2(this.allCategories, this.parentCategories, this.navigateToNext,{Key? key}) : super(key: key);
+  const CategoryWidgetStyle2(
+      this.allCategories, this.parentCategories, this.navigateToNext,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(top: 5),
-    child: GridView.builder(
-    padding: const EdgeInsets.symmetric(vertical: AppStyles.SCREEN_MARGIN_VERTICAL, horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
-    itemCount: parentCategories.length,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2,
-    crossAxisSpacing: AppStyles.GRID_SPACING,
-    childAspectRatio: 0.9,
-    mainAxisSpacing: AppStyles.GRID_SPACING),
-    itemBuilder: (BuildContext context, int index) {
-    return GestureDetector(
-    onTap: () {
-    List<Category> childCategories = getChildCategories(allCategories, parentCategories[index].id!);
-    if(childCategories.isEmpty) {
-      navigateToNext(BlocProvider(
-    create: (BuildContext context) {
-    return ProductsByCatBloc(
-    RealProductsRepo(),
-    BlocProvider.of<CategoriesBloc>(context),
-    parentCategories[index].id,
-    "id",
-    "ASC",
-    "");
-    },
-    child: ShopScreen(
-    parentCategories[index],
-    navigateToNext)));
-    } else {
-      navigateToNext(ChildCategoriesScreen(childCategories, allCategories, navigateToNext));
-    }
-    },
-    child: Column(
-    children: [
-    Expanded(
-    child: ClipRRect(
-    borderRadius:
-    BorderRadius.circular(AppStyles.CARD_RADIUS),
-    child: CachedNetworkImage(
-    imageUrl: ApiProvider.imgMediumUrlString +
-    parentCategories[index].gallary!,
-    fit: BoxFit.cover,
-    progressIndicatorBuilder:
-    (context, url, downloadProgress) => Center(
-    child: CircularProgressIndicator(
-    value: downloadProgress.progress,color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Theme.of(context).primaryColor,)),
-    errorWidget: (context, url, error) =>
-    const Icon(Icons.error),
-    ),
-    ),
+        child: GridView.builder(
+          padding: const EdgeInsets.symmetric(
+              vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
+              horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
+          itemCount: parentCategories.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: AppStyles.GRID_SPACING,
+              childAspectRatio: 0.8,
+              mainAxisSpacing: AppStyles.GRID_SPACING),
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () {
+                List<Category> childCategories = getChildCategories(
+                    allCategories, parentCategories[index].id!);
+                if (childCategories.isEmpty) {
+                  navigateToNext(BlocProvider(
+                      create: (BuildContext context) {
+                        return ProductsByCatBloc(
+                            RealProductsRepo(),
+                            BlocProvider.of<CategoriesBloc>(context),
+                            parentCategories[index].id,
+                            "id",
+                            "ASC",
+                            "");
+                      },
+                      child:
+                          ShopScreen(parentCategories[index], navigateToNext)));
+                } else {
+                  navigateToNext(ChildCategoriesScreen(
+                      childCategories, allCategories, navigateToNext));
+                }
+              },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(AppStyles.CARD_RADIUS),
+                      child: CachedNetworkImage(
+                        imageUrl: ApiProvider.imgMediumUrlString +
+                            parentCategories[index].gallary!,
+                        fit: BoxFit.cover,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Center(
+                                child: CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Theme.of(context).primaryColor,
+                        )),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      parentCategories[index].name!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                parentCategories[index].name!,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                    fontSize: 14.0, fontWeight: FontWeight.w300),
-              ),
-            ],
-          ),
-        );
-      },
-    )
-    );
+            );
+          },
+        ));
   }
 
   List<Category> getChildCategories(List<Category> data, int id) {
     List<Category> tempCategories = [];
-    for (int i=0; i<data.length; i++){
-      if (data[i].parent == id){
+    for (int i = 0; i < data.length; i++) {
+      if (data[i].parent == id) {
         tempCategories.add(data[i]);
       }
     }

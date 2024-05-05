@@ -7,16 +7,19 @@ import 'package:flutter_kundol/blocs/auth/auth_bloc.dart';
 import 'package:flutter_kundol/blocs/language/language_bloc.dart';
 import 'package:flutter_kundol/blocs/currency/currency_bloc.dart';
 import 'package:flutter_kundol/blocs/server_settings/server_settings_bloc.dart';
+import 'package:flutter_kundol/constants/app_config.dart';
 import 'package:flutter_kundol/constants/app_data.dart';
 import 'package:flutter_kundol/models/currency_date.dart';
 import 'package:flutter_kundol/models/language_data.dart';
 import 'package:flutter_kundol/models/user.dart';
 import 'package:flutter_kundol/tweaks/shared_pref_service.dart';
 
+import '../../main.dart';
 import '../main_screen.dart';
 //TODO: need to change splash screen types.
 class SplashScreen extends StatefulWidget {
- // const SplashScreen({Key key}) : super(key: key);
+  final String splash;
+ const SplashScreen({Key? key, required this.splash}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -114,11 +117,11 @@ class ScreenUi extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.white,
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: Image.asset("assets/images/splash.jpg", fit: BoxFit.cover,),
+          child: Image.network(AppConfig.ECOMMERCE_URL + splash_backend, fit: BoxFit.fill,),
           /*child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

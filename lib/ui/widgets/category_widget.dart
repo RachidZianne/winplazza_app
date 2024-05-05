@@ -32,11 +32,15 @@ class _CategoryWidgetState extends State<CategoryWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
               child: Text((AppLocalizations.of(context)!.translate('shop by category'))!.toUpperCase(),
-                style: Theme.of(context).textTheme.subtitle1)),
+                style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)
+                // Theme.of(context).textTheme.subtitle1
+
+              ),),
           BlocBuilder<CategoriesBloc, CategoriesState>(
             builder: (context, state) {
               if (state is CategoriesLoaded) {
@@ -46,7 +50,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.categoriesResponse.data!.length > 10 ? 10 : state.categoriesResponse.data!.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
+                      crossAxisCount: 3,
                       crossAxisSpacing: AppStyles.GRID_SPACING,
                       childAspectRatio: 0.9,
                       mainAxisSpacing: AppStyles.GRID_SPACING),
@@ -83,14 +87,14 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                         child: CircularProgressIndicator(
                                             value: downloadProgress.progress,color:Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,)),
                                     errorWidget: (context, url, error) =>
-                                         Icon(Icons.error,color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Theme.of(context).primaryColor,),
+                                         Center(child: Icon(Icons.error,color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,)),
                                   ),
                                   Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Container(
                                       width: double.infinity,
                                       height: 16,
-                                      color: const Color(0xffF1435A),
+                                      color:  Colors.black,
                                       child: Text(
                                         state.categoriesResponse.data![index].name!,
                                         maxLines: 1,

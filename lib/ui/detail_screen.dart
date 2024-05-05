@@ -25,7 +25,6 @@ import 'package:flutter_kundol/ui/widgets/related_products_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:share/share.dart';
 
-
 import '../constants/app_cart.dart';
 
 import '../tweaks/app_localization.dart';
@@ -53,48 +52,52 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     BlocProvider.of<DetailScreenBloc>(context)
         .add(GetProductById(widget.product.productId!));
   }
+
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   var s1 = AppBadge();
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).scaffoldBackgroundColor :  const Color(0xffF6F6F6),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Theme.of(context).scaffoldBackgroundColor
+          : const Color(0xffF6F6F6),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(0), // here the desired height
           child: AppBar(
             leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios_new, color: Theme.of(context).brightness ==
-                  Brightness.dark
-                  ? Colors.white
-                  : Colors.black,),
+              icon: Icon(
+                Icons.arrow_back_ios_new,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+              ),
               onPressed: () => Navigator.of(context).pop(),
             ),
             elevation: 0.0,
             backgroundColor: Theme.of(context).cardColor,
-          )
-      ),
+          )),
       body: BlocConsumer<DetailScreenBloc, DetailPageState>(
         listener: (context, state) {
           if (state is GetQuantityLoaded) {
             if (state.quantityData.remainingStock == null ||
                 int.tryParse(state.quantityData.remainingStock!) == 0) {
               Navigator.pop(context);
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).translate("Stock is empty"))));
-            } else if (int.tryParse(state.quantityData.remainingStock!) !<
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(AppLocalizations.of(context).translate("Stock is empty"))));
+            } else if (int.tryParse(state.quantityData.remainingStock!)! <
                 quantity) {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(AppLocalizations.of(context).translate("Max stock available is") +
+                  content: Text(AppLocalizations.of(context).translate("Max stock available is")+
                       state.quantityData.remainingStock!)));
-            } else if (int.tryParse(state.quantityData.remainingStock!) !>=
+            } else if (int.tryParse(state.quantityData.remainingStock!)! >=
                 quantity) {
               BlocProvider.of<DetailScreenBloc>(context).add(AddToCart(
                   widget.product.productId,
                   quantity,
-                  int.tryParse((state.quantityData.productCombinationId??""))));
-                 
+                  int.tryParse(
+                      (state.quantityData.productCombinationId ?? ""))));
             }
           } else if (state is ItemCartAdded) {
             Navigator.pop(context);
@@ -110,8 +113,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 .showSnackBar(SnackBar(content: Text(state.error!)));
           } else {
             Navigator.pop(context);
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).translate("Empty"))));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content:
+                    Text(AppLocalizations.of(context).translate("Empty"))));
           }
         },
         builder: (context, state) {
@@ -127,27 +131,28 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         child: Padding(
                             padding: const EdgeInsets.all(0),
                             child: IconButton(
-                              icon: Icon(Icons.arrow_back_ios_new, color: Theme.of(context).brightness ==
-                                  Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,),
+                              icon: Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                               onPressed: () => Navigator.of(context).pop(),
-                            )
-                        ),
+                            )),
                       ),
                       centerWidget: Center(
                           child: Text(
-                            AppLocalizations.of(context).translate("Product Details"),
-                            style: TextStyle(
-                                fontSize: 16.0, fontFamily: "MontserratSemiBold",
-                                color: Theme.of(context).brightness ==
-                                  Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                                ),
-                          )),
-                      trailingWidget:
-                      Center(
+                        AppLocalizations.of(context).translate("Product Details"),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: "MontserratSemiBold",
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                      )),
+                      trailingWidget: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -155,17 +160,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               padding: const EdgeInsets.only(bottom: 20),
                               child: GestureDetector(
                                 onTap: () => widget.navigateToNext(
-                                  (AppData.user != null)?
-                                  MultiBlocProvider(
-                                    providers: [
-                                      BlocProvider(
-                                      create: (context) =>
-                                          CartBloc(RealCartRepo()),),
-                            
-                                    ],
-                                    child: CartScreen(),
-                                  )
-                                      : const SignIn(),
+                                  (AppData.user != null)
+                                      ? MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider(
+                                              create: (context) =>
+                                                  CartBloc(RealCartRepo()),
+                                            ),
+                                          ],
+                                          child: CartScreen(),
+                                        )
+                                      : SignIn(),
                                 ),
                                 child: Container(
                                   height: 35,
@@ -173,35 +178,49 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   //  color: Colors.black12,
                                   child: Stack(
                                     children: [
-                                      Center(child: Padding(
-                                        padding: const EdgeInsets.only(right: 12,top: 5),
-                                        child: Icon(Icons.shopping_cart,size: 25,
-                                        color: Theme.of(context).brightness ==
-                                  Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
+                                      Center(
+                                          child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 12, top: 5),
+                                        child: Icon(
+                                          Icons.shopping_cart,
+                                          size: 25,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.black,
                                         ),
                                       )),
                                       Positioned(
                                           top: 0,
                                           left: 12,
                                           child: Padding(
-                                            padding: const EdgeInsets.only(left: 8),
+                                            padding:
+                                                const EdgeInsets.only(left: 8),
                                             child: Container(
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(20),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
                                                   color: Colors.red,
                                                 ),
                                                 height: 15,
                                                 width: 15,
-                                                child: Center(child: Text(BadgeItems().toString(),style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 10),))),
+                                                child: Center(
+                                                    child: Text(
+                                                  BadgeItems().toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 10),
+                                                ))),
                                           )),
                                       ValueListenableBuilder<int>(
-                                        builder: (BuildContext context, int value, Widget? child) { 
-                                          return
-                                            Container();
+                                        builder: (BuildContext context,
+                                            int value, Widget? child) {
+                                          return Container();
                                         },
-                                        valueListenable: _counter, 
+                                        valueListenable: _counter,
                                       )
                                     ],
                                   ),
@@ -214,525 +233,596 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                     Expanded(
                       child: SingleChildScrollView(
-                        child: Padding(
-                          padding:const EdgeInsets.symmetric(
-                              vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
-                              horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
-                          child: ListView(
-                            shrinkWrap: true,
-                            physics:const NeverScrollableScrollPhysics(),
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    AppStyles.CARD_RADIUS),
-                                child: Container(
-                                    width: double.maxFinite,
-                                    child: AspectRatio(
-                                      aspectRatio: 1.5/1,
-                                      child: Stack(
-                                        // alignment: Alignment.bottomCenter,
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
+                                horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
+                            child: ListView(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      AppStyles.CARD_RADIUS),
+                                  child: Container(
+                                      width: double.maxFinite,
+                                      child: AspectRatio(
+                                        aspectRatio: 1.5 / 1,
+                                        child: Stack(
+                                          // alignment: Alignment.bottomCenter,
+                                          children: [
+                                            CarouselSlider.builder(
+                                              options: CarouselOptions(
+                                                height: double.maxFinite,
+                                                autoPlay: true,
+                                                viewportFraction: 1.0,
+                                                enableInfiniteScroll: true,
+                                                initialPage: 0,
+                                                autoPlayInterval:
+                                                    const Duration(seconds: 5),
+                                                enlargeCenterPage: false,
+                                                autoPlayAnimationDuration:
+                                                    const Duration(
+                                                        milliseconds: 500),
+                                                autoPlayCurve:
+                                                    Curves.fastOutSlowIn,
+                                                pauseAutoPlayOnTouch: false,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                onPageChanged: (index, reason) {
+                                                  setState(() {
+                                                    _sliderIndex = index;
+                                                  });
+                                                },
+                                              ),
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index,
+                                                      int realIndex) {
+                                                return Container(
+                                                  width: double.maxFinite,
+                                                  height: double.maxFinite,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: ApiProvider
+                                                            .imgMediumUrlString +
+                                                        widget
+                                                            .product
+                                                            .productGallaryDetail![
+                                                                index]
+                                                            .gallaryName!,
+                                                    fit: BoxFit.cover,
+                                                    progressIndicatorBuilder: (context,
+                                                            url,
+                                                            downloadProgress) =>
+                                                        Center(
+                                                            child: CircularProgressIndicator(
+                                                                value: downloadProgress
+                                                                    .progress)),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        const Icon(Icons.error),
+                                                  ),
+                                                );
+                                              },
+                                              itemCount: widget.product
+                                                  .productGallaryDetail?.length,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    top: 150),
+                                                height: 50.0,
+                                                child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Container(
+                                                      width: 8.0,
+                                                      height: 8.0,
+                                                      margin: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 12,
+                                                          horizontal: 2.0),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color:
+                                                                Colors.black54),
+                                                        shape: BoxShape.circle,
+                                                        color: _sliderIndex ==
+                                                                index
+                                                            ? Colors.white54
+                                                            : Colors
+                                                                .transparent,
+                                                      ),
+                                                    );
+                                                  },
+                                                  itemCount: widget
+                                                      .product
+                                                      .productGallaryDetail
+                                                      ?.length,
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(12),
+                                                width: 35,
+                                                height: 35,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.black,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(20),
+                                                    )),
+                                                child: SvgPicture.asset(
+                                                  (checkForWishlist(widget
+                                                          .product.productId!))
+                                                      ? "assets/icons/ic_heart_filled.svg"
+                                                      : "assets/icons/ic_heart.svg",
+                                                  fit: BoxFit.none,
+                                                  width: 14,
+                                                  height: 14,
+                                                  color: (false)
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                      : Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(height: 12.0),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        if (widget
+                                                .product.productDiscountPrice !=
+                                            0)
+                                          buildLabel(
+                                            AppLocalizations.of(context).translate("SALE"),
+                                            Theme.of(context).primaryColor,
+                                          ),
+                                        const SizedBox(width: 10),
+                                        if (widget.product.isFeatured == 1)
+                                          buildLabel(
+                                            AppLocalizations.of(context).translate("FEATURED"),
+                                            const Color(0xFF36AFFF),
+                                          ),
+                                        /*SizedBox(width: 10),
+                                        buildLabel(
+                                          "NEW",
+                                          Color(0xFF18EF35),
+                                        ),*/
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (AppData.user != null) {
+                                              if (checkForWishlist(
+                                                  widget.product.productId!)) {
+                                                for (int i = 0;
+                                                    i <
+                                                        AppData.wishlistData
+                                                            .length;
+                                                    i++) {
+                                                  if (AppData.wishlistData[i]
+                                                          .productId ==
+                                                      widget
+                                                          .product.productId) {
+                                                    setState(() {
+                                                      BlocProvider.of<
+                                                                  WishlistBloc>(
+                                                              context)
+                                                          .add(UnLikeProduct(
+                                                              AppData
+                                                                  .wishlistData[
+                                                                      i]
+                                                                  .wishlist!));
+                                                    });
+                                                    break;
+                                                  }
+                                                }
+                                              } else {
+                                                BlocProvider.of<WishlistBloc>(
+                                                        context)
+                                                    .add(LikeProduct(widget
+                                                        .product.productId!));
+                                              }
+                                            }
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12.0),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Share.share(AppLocalizations.of(
+                                                    context).translate(
+                                                    "Hi there, please check this app. i think you will love it. "));
+                                          },
+                                          child: Icon(
+                                            Icons.share,
+                                            color: Colors.grey[400],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 12.0),
+                                Text(
+                                  widget.product.detail!.first.title!,
+                                  style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontFamily: "MontserratSemiBold"),
+                                ),
+                                const SizedBox(height: 6.0),
+                                (widget.product.productDiscountPrice != 0)
+                                    ? Row(
                                         children: [
-                                          CarouselSlider.builder(
-                                            options: CarouselOptions(
-                                              height: double.maxFinite,
-                                              autoPlay: true,
-                                              viewportFraction: 1.0,
-                                              enableInfiniteScroll: true,
-                                              initialPage: 0,
-                                              autoPlayInterval:
-                                              const Duration(seconds: 5),
-                                              enlargeCenterPage: false,
-                                              autoPlayAnimationDuration:
-                                              const Duration(milliseconds: 500),
-                                              autoPlayCurve: Curves.fastOutSlowIn,
-                                              pauseAutoPlayOnTouch: false,
-                                              scrollDirection: Axis.horizontal,
-                                              onPageChanged: (index, reason) {
+                                          Text(
+                                            AppData.currency!.code! +
+                                                double.parse(widget.product
+                                                        .productDiscountPrice
+                                                        .toString())
+                                                    .toStringAsFixed(2),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1
+                                                ?.copyWith(
+                                                    color: Theme.of(context)
+                                                        .primaryColor),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            AppData.currency!.code! +
+                                                double.parse(widget
+                                                        .product.productPrice
+                                                        .toString())
+                                                    .toStringAsFixed(2),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1
+                                                ?.copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough),
+                                          ),
+                                        ],
+                                      )
+                                    : Text(
+                                        AppData.currency!.code! +
+                                            double.parse(widget
+                                                    .product.productPrice
+                                                    .toString())
+                                                .toStringAsFixed(2),
+                                        style: const TextStyle(
+                                            fontSize: 12.0,
+                                            fontFamily: "MontserratSemiBold"),
+                                      ),
+                                const SizedBox(height: 6.0),
+                                RichText(
+                                    text: TextSpan(children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context).translate("Category"),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  TextSpan(
+                                      text: widget.product.category!.first
+                                          .categoryDetail!.detail!.first.name,
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppStyles.COLOR_GREY_DARK
+                                              : AppStyles.COLOR_GREY_LIGHT)),
+                                ])),
+                                const SizedBox(height: 4.0),
+                                RichText(
+                                    text: TextSpan(children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context).translate('ID'),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  TextSpan(
+                                      text: widget.product.productId.toString(),
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppStyles.COLOR_GREY_DARK
+                                              : AppStyles.COLOR_GREY_LIGHT)),
+                                ])),
+                                const SizedBox(height: 4.0),
+                                RichText(
+                                    text: TextSpan(children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context).translate("Tags"),
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  TextSpan(
+                                      text: widget.product.productBrand == null
+                                          ? ""
+                                          : widget
+                                              .product.productBrand!.brandName,
+                                      style: TextStyle(
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? AppStyles.COLOR_GREY_DARK
+                                              : AppStyles.COLOR_GREY_LIGHT)),
+                                ])),
+                                const SizedBox(height: 8.0),
+                                Text(
+                                  AppLocalizations.of(context).translate("Description"),
+                                  textAlign: TextAlign.start,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      ?.copyWith(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                const SizedBox(height: 4.0),
+                                Text(widget.product.detail!.first.desc!,
+                                    style: TextStyle(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? AppStyles.COLOR_GREY_DARK
+                                          : AppStyles.COLOR_GREY_LIGHT,
+                                    )),
+                                const SizedBox(height: 4.0),
+                                if (widget.product.productType ==
+                                    AppConstants.PRODUCT_TYPE_VARIABLE)
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        side: BorderSide(
+                                          width: 1,
+                                          color: Theme.of(context).primaryColor,
+                                        )),
+                                    elevation: 5,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Theme.of(context)
+                                            .scaffoldBackgroundColor
+                                        : Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: ListTile(
+                                        onTap: () {
+                                          buildBottomSheet(context);
+                                        },
+                                        dense: true,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 0),
+                                        title: Text(
+                                          AppLocalizations.of(context).translate(
+                                              "Select Color, Size & Quality"),
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                        ),
+                                        trailing:
+                                            const Icon(Icons.chevron_right),
+                                      ),
+                                    ),
+                                  ),
+                                if (widget.product.productType ==
+                                    AppConstants.PRODUCT_TYPE_SIMPLE)
+                                  ListTile(
+                                    dense: true,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 0),
+                                    title: Text(AppLocalizations.of(context).translate("Quantity")),
+                                    trailing: Container(
+                                      // decoration: BoxDecoration(
+                                      //   border: Border.all(
+                                      //       color: Theme.of(context).brightness ==
+                                      //               Brightness.dark
+                                      //           ? AppStyles.COLOR_GREY_DARK
+                                      //           : AppStyles.COLOR_GREY_LIGHT),
+                                      //   borderRadius: BorderRadius.all(
+                                      //       Radius.circular(8.0)),
+                                      // ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            height: 24,
+                                            width: 24,
+                                            child: MaterialButton(
+                                              onPressed: () {
                                                 setState(() {
-                                                  _sliderIndex = index;
+                                                  if (quantity > 1) quantity--;
                                                 });
                                               },
-                                            ),
-                                            itemBuilder: (BuildContext context,
-                                                int index, int realIndex) {
-                                              return Container(
-                                                width: double.maxFinite,
-                                                height: double.maxFinite,
-                                                child: CachedNetworkImage(
-                                                  imageUrl: ApiProvider
-                                                      .imgMediumUrlString +
-                                                      widget
-                                                          .product
-                                                          .productGallaryDetail![
-                                                      index]
-                                                          .gallaryName!,
-                                                  fit: BoxFit.cover,
-                                                  progressIndicatorBuilder: (context,
-                                                      url, downloadProgress) =>
-                                                      Center(
-                                                          child: CircularProgressIndicator(
-                                                              value:
-                                                              downloadProgress
-                                                                  .progress)),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                     const Icon(Icons.error),
-                                                ),
-                                              );
-                                            },
-                                            itemCount: widget.product
-                                                .productGallaryDetail?.length,
-                                          ),
-                                          Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Container(
-                                              margin:const EdgeInsets.only(top: 150),
-                                              height: 50.0,
-                                              child: ListView.builder(
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.horizontal,
-                                                itemBuilder: (context, index) {
-                                                  return Container(
-                                                    width: 8.0,
-                                                    height: 8.0,
-                                                    margin:const EdgeInsets.symmetric(
-                                                        vertical: 12,
-                                                        horizontal: 2.0),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.black54),
-                                                      shape: BoxShape.circle,
-                                                      color: _sliderIndex == index
-                                                          ? Colors.white54
-                                                          : Colors.transparent,
-                                                    ),
-                                                  );
-                                                },
-                                                itemCount: widget.product
-                                                    .productGallaryDetail?.length,
+                                              color: Colors.grey,
+                                              textColor: Colors.white,
+                                              child: const Text(
+                                                "-",
+                                                style: TextStyle(fontSize: 20),
                                               ),
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 3),
+                                              shape: const CircleBorder(),
                                             ),
                                           ),
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: Container(
-                                              margin:const EdgeInsets.all(12),
-                                              width: 25,
-                                              height: 25,
-                                             color:const Color(0x22000000),
-                                              child: SvgPicture.asset(
-                                                (checkForWishlist(
-                                                    widget.product.productId!))
-                                                    ? "assets/icons/ic_heart_filled.svg"
-                                                    : "assets/icons/ic_heart.svg",
-                                                fit: BoxFit.none,
-                                                width: 14,
-                                                height: 14,
-                                                color: (false)
-                                                    ? Theme.of(context)
-                                                    .primaryColor
-                                                    : Colors.white,
+                                          Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 22.0),
+                                              child: Text(
+                                                quantity.toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              )),
+                                          Container(
+                                            height: 24,
+                                            width: 24,
+                                            child: MaterialButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  quantity++;
+                                                });
+                                              },
+                                              color: Colors.black,
+                                              // color: Theme.of(context).primaryColor,
+                                              textColor: Colors.white,
+                                              child: const Text(
+                                                "+",
+                                                style: TextStyle(fontSize: 20),
                                               ),
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 3),
+                                              shape: const CircleBorder(),
                                             ),
                                           ),
                                         ],
                                       ),
-                                    )
-                                ),
-                              ),
-                             const SizedBox(height: 12.0),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      if (widget.product.productDiscountPrice !=
-                                          0)
-                                        buildLabel(
-                                          AppLocalizations.of(context).translate("SALE"),
-                                          Theme.of(context).primaryColor,
-                                        ),
-                                    const SizedBox(width: 10),
-                                      if (widget.product.isFeatured == 1)
-                                        buildLabel(
-                                          AppLocalizations.of(context).translate("FEATURED"),
-                                         const Color(0xFF36AFFF),
-                                        ),
-                                      /*SizedBox(width: 10),
-                                      buildLabel(
-                                        "NEW",
-                                        Color(0xFF18EF35),
-                                      ),*/
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (AppData.user != null) {
-                                            if (checkForWishlist(
-                                                widget.product.productId!)) { 
-                                              for (int i = 0;
-                                              i <
-                                                  AppData
-                                                      .wishlistData.length;
-                                              i++) {
-                                                if (AppData.wishlistData[i]
-                                                    .productId ==
-                                                    widget.product.productId) {
-                                                  setState(() {
-                                                    BlocProvider.of<
-                                                        WishlistBloc>(
-                                                        context)
-                                                        .add(UnLikeProduct(
-                                                        AppData
-                                                            .wishlistData[i]
-                                                            .wishlist!));
-                                                  });
-                                                  break;
-                                                }
-                                              }
-                                            } else {
-                                              BlocProvider.of<WishlistBloc>(
-                                                  context)
-                                                  .add(LikeProduct(widget
-                                                  .product.productId!));
-                                            }
-                                          }
-                                        },
-                                        child: ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(5),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12.0),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Share.share(
-                                              AppLocalizations.of(context).translate("Hi there, please check this app. i think you will love it. "));
-                                        },
-                                        child: Icon(
-                                          Icons.share,
-                                          color: Colors.grey[400],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 12.0),
-                              Text(
-                                widget.product.detail!.first.title!,
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: "MontserratSemiBold"),
-                              ),
-                              const SizedBox(height: 6.0),
-                              (widget.product.productDiscountPrice != 0) ?
-                              Row(
-                                children: [
-                                  Text(
-                                    AppData.currency!.code !+
-                                        double.parse(widget.product.productDiscountPrice
-                                            .toString())
-                                            .toStringAsFixed(2),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    AppData.currency!.code !+
-                                        double.parse(widget
-                                            .product.productPrice
-                                            .toString())
-                                            .toStringAsFixed(2),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle1
-                                        ?.copyWith(
-                                        decoration:
-                                        TextDecoration.lineThrough),
-                                  ),
-                                ],
-                              ) : Text(
-                                AppData.currency!.code !+
-                                    double.parse(widget.product.productPrice
-                                        .toString())
-                                        .toStringAsFixed(2),
-                                style: const TextStyle(
-                                    fontSize: 12.0,
-                                    fontFamily: "MontserratSemiBold"),
-                              ),
-                              const SizedBox(height: 6.0),
-                              RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: AppLocalizations.of(context).translate("Category"),
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                    ),
-                                    TextSpan(
-                                        text: widget.product.category!.first
-                                            .categoryDetail!.detail!.first.name,
-                                        style: TextStyle(
-                                            color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? AppStyles.COLOR_GREY_DARK
-                                                : AppStyles.COLOR_GREY_LIGHT)),
-                                  ])),
-                              const SizedBox(height: 4.0),
-                              RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: AppLocalizations.of(context).translate('ID'),
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                    ),
-                                    TextSpan(
-                                        text: widget.product.productId.toString(),
-                                        style: TextStyle(
-                                            color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? AppStyles.COLOR_GREY_DARK
-                                                : AppStyles.COLOR_GREY_LIGHT)),
-                                  ])),
-                              const SizedBox(height: 4.0),
-                              RichText(
-                                  text: TextSpan(children: [
-                                    TextSpan(
-                                      text: AppLocalizations.of(context).translate("Tags"),
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                    ),
-                                    TextSpan(
-                                        text: widget.product.productBrand == null
-                                            ? ""
-                                            : widget.product.productBrand!.brandName,
-                                        style: TextStyle(
-                                            color: Theme.of(context).brightness ==
-                                                Brightness.dark
-                                                ? AppStyles.COLOR_GREY_DARK
-                                                : AppStyles.COLOR_GREY_LIGHT)),
-                                  ])),
-                              const SizedBox(height: 8.0),
-                              Text(
-                                AppLocalizations.of(context).translate("Description"),
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    ?.copyWith(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                              const SizedBox(height: 4.0),
-                              Text(widget.product.detail!.first.desc!,
-                                  style: TextStyle(
-                                    color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                        ? AppStyles.COLOR_GREY_DARK
-                                        : AppStyles.COLOR_GREY_LIGHT,
-                                  )),
-                              const SizedBox(height: 4.0),
-                              if (widget.product.productType ==
-                                  AppConstants.PRODUCT_TYPE_VARIABLE)
-                                Card(
-                                  shape :RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      side: BorderSide(
-                                        width: 1,
-                                        color: Theme.of(context).primaryColor,
-                                      )
-                                  ),
-                                  elevation: 5,
-                                  color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).scaffoldBackgroundColor :  Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                                    child: ListTile(
-                                      onTap: () {
-                                        buildBottomSheet(context);
-                                      },
-                                      dense: true,
-                                      contentPadding:
-                                      const EdgeInsets.symmetric(horizontal: 0),
-                                      title: Text(AppLocalizations.of(context).translate("Select Color, Size & Quality"),style: TextStyle(color: Theme.of(context).brightness == Brightness.dark ? Colors.white :  Colors.black),),
-                                      trailing: const Icon(Icons.chevron_right),
                                     ),
                                   ),
-                                ),
-                              if (widget.product.productType ==
-                                  AppConstants.PRODUCT_TYPE_SIMPLE)
-                                ListTile(
-                                  dense: true,
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 0),
-                                  title: Text(AppLocalizations.of(context).translate("Quantity")),
-                                  trailing: Container(
-                                    // decoration: BoxDecoration(
-                                    //   border: Border.all(
-                                    //       color: Theme.of(context).brightness ==
-                                    //               Brightness.dark
-                                    //           ? AppStyles.COLOR_GREY_DARK
-                                    //           : AppStyles.COLOR_GREY_LIGHT),
-                                    //   borderRadius: BorderRadius.all(
-                                    //       Radius.circular(8.0)),
-                                    // ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Container(
-                                          height: 24,
-                                          width: 24,
-                                          child : MaterialButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                if (quantity > 1) quantity--;
-                                              });
+                                GestureDetector(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => BlocProvider(
+                                            create: (BuildContext context) {
+                                              return ReviewsBloc(
+                                                  RealReviewsRepo());
                                             },
-                                            color: Colors.grey,
-                                            textColor: Colors.white,
-                                            padding: const EdgeInsets.only(bottom: 3),
-                                            shape: const CircleBorder(),
-                                            child: const Text("-",style: TextStyle(fontSize: 20),),
-                                          ),
-                                        ),
-                                        
-                                        Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 22.0),
-                                            child: Text(
-                                              quantity.toString(),
+                                            child: ReviewScreen(
+                                                widget.product.productId!)),
+                                      )),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                AppLocalizations.of(context).translate("Reviews"),
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context).translate("See All"),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .subtitle1,
-                                            )),
-                                        Container(
-                                          height: 24,
-                                          width: 24,
-                                          child : MaterialButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                quantity++;
-                                              });
-                                            },
-                                            color: Theme.of(context).primaryColor,
-                                            textColor: Colors.white,
-                                            padding: const EdgeInsets.only(bottom: 3),
-                                            shape: const CircleBorder(),
-                                            child: const Text("+",style: TextStyle(fontSize: 20),),
-                                          ),
+                                                  .bodyText2,
+                                            ),
+                                          ],
                                         ),
+                                        const SizedBox(height: 8.0),
+                                        Text(
+                                          AppLocalizations.of(context).translate("Review name"),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                        ),
+                                        const SizedBox(height: 12.0),
+                                        StarRating(
+                                            starCount: 5,
+                                            rating:
+                                                widget.product.productRating !=
+                                                        null
+                                                    ? double.parse(widget
+                                                        .product.productRating
+                                                        .toString())
+                                                    : 0,
+                                            onRatingChanged: (rating) {}),
+                                        const SizedBox(height: 12.0),
+                                        RichText(
+                                            text: TextSpan(children: [
+                                          TextSpan(
+                                              text: (widget.product
+                                                          .productRating !=
+                                                      null)
+                                                  ? double.tryParse(widget
+                                                          .product.productRating
+                                                          .toString())
+                                                      ?.toStringAsFixed(1)
+                                                  : 0.0.toString(),
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppStyles
+                                                          .COLOR_GREY_DARK
+                                                      : AppStyles
+                                                          .COLOR_GREY_LIGHT)),
+                                          TextSpan(
+                                              text: " (" +
+                                                  widget.product.reviews!.length
+                                                      .toString() +
+                                                  AppLocalizations.of(context).translate("Reviews"),
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppStyles
+                                                          .COLOR_GREY_DARK
+                                                      : AppStyles
+                                                          .COLOR_GREY_LIGHT)),
+                                        ])),
+                                        const SizedBox(height: 12.0),
+                                        const SizedBox(height: 12.0),
                                       ],
                                     ),
                                   ),
                                 ),
-                              GestureDetector(
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BlocProvider(
-                                          create: (BuildContext context) {
-                                            return ReviewsBloc(
-                                                RealReviewsRepo());
-                                          },
-                                          child: ReviewScreen(
-                                              widget.product.productId!)),
-                                    )),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded( 
-                                            child: Text(AppLocalizations.of(context).translate("Reviews"),style: TextStyle(color: Theme.of(context).primaryColor),),
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context).translate("See All"),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8.0),
-                                      Text(
-                                        AppLocalizations.of(context).translate("Review name"),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                      ),
-                                      const SizedBox(height: 12.0),
-                                      StarRating(
-                                          starCount: 5,
-                                          rating: widget.product
-                                              .productRating !=
-                                              null
-                                              ? double.parse(widget
-                                              .product.productRating
-                                              .toString())
-                                              : 0,
-                                          onRatingChanged: (rating) {}),
-                                      const SizedBox(height: 12.0),
-                                      RichText(
-                                          text: TextSpan(children: [
-                                            TextSpan(
-                                                text:  (widget.product.productRating !=
-                                                    null)
-                                                    ? double.tryParse(widget
-                                                    .product.productRating
-                                                    .toString())
-                                                    ?.toStringAsFixed(1)
-                                                    : 0.0.toString(),
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .brightness ==
-                                                        Brightness.dark
-                                                        ? AppStyles
-                                                        .COLOR_GREY_DARK
-                                                        : AppStyles
-                                                        .COLOR_GREY_LIGHT)
-                                            ),
-                                            TextSpan(
-                                                text: " (" +
-                                                    widget.product.reviews
-                                                        !.length
-                                                        .toString() +
-                                                    AppLocalizations.of(context).translate("Reviews"),
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .brightness ==
-                                                        Brightness.dark
-                                                        ? AppStyles
-                                                        .COLOR_GREY_DARK
-                                                        : AppStyles
-                                                        .COLOR_GREY_LIGHT)),
-                                          ])),
-
-                                      const SizedBox(height: 12.0),
-                                      
-                                      const SizedBox(height: 12.0),
-                                     
-                                    ],
-                                  ),
+                                //  Text("YOU MIGHT ALSO LIKE"),
+                                BlocProvider(
+                                  create: (context) =>
+                                      RelatedProductsBloc(RealProductsRepo()),
+                                  child: RelatedProductsWidget(
+                                      widget
+                                          .product
+                                          .category
+                                          ?.first
+                                          .categoryDetail
+                                          ?.detail
+                                          ?.first
+                                          .categoryId
+                                          .toString(),
+                                      widget.navigateToNext),
                                 ),
-                              ),
-                              //  Text("YOU MIGHT ALSO LIKE"),
-                              BlocProvider(
-                                create: (context) =>
-                                    RelatedProductsBloc(RealProductsRepo()),
-                                child: RelatedProductsWidget(
-                                    widget.product.category?.first.categoryDetail
-                                        ?.detail?.first.categoryId.toString(),
-                                    widget.navigateToNext),
-                              ),
-                              //ProductsWidget(null, null),
-                              const SizedBox(
-                                height: 75.0,
-                              )
-                            ],
+                                //ProductsWidget(null, null),
+                                const SizedBox(
+                                  height: 75.0,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -752,16 +842,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       size: 24.0,
                     ),
                     label: Text(
-                        AppLocalizations.of(context).translate('ADD TO CART')),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-
-                            )
-                        )
+                      AppLocalizations.of(context).translate(
+                        'ADD TO CART',
+                      ),
+                      style: const TextStyle(fontFamily: "MontserratSemiBold"),
                     ),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        // backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ))),
                     onPressed: () {
                       print("add to cart");
                       if (widget.product.productType ==
@@ -770,7 +864,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       else {
                         BlocProvider.of<DetailScreenBloc>(context).add(
                             GetQuantity(
-                                widget.product.productId!, AppLocalizations.of(context).translate("simple"), 1));
+                                widget.product.productId!,
+                                AppLocalizations.of(context).translate("simple"),
+                                1));
                       }
                     },
                     // child: Text("Add to Bag")
@@ -799,8 +895,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void onVariationSelected(int combinationId, int quantity) {
     Navigator.pop(context);
     this.quantity = quantity;
-    BlocProvider.of<DetailScreenBloc>(context)
-        .add(GetQuantity(widget.product.productId!, AppLocalizations.of(context).translate("variable"), combinationId));
+    BlocProvider.of<DetailScreenBloc>(context).add(GetQuantity(
+        widget.product.productId!,
+        AppLocalizations.of(context).translate("variable"),
+        combinationId));
   }
 
   Widget buildDivider(BuildContext context) {
@@ -820,8 +918,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         Container(
           margin: isPaddingEnabled
               ? const EdgeInsets.symmetric(
-              vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
-              horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL)
+                  vertical: AppStyles.SCREEN_MARGIN_VERTICAL,
+                  horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL)
               : EdgeInsets.zero,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -844,14 +942,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       width: 70,
       height: 20,
       padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-      decoration:
-      BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
       child: Center(
         child: Text(
           text,
           style: const TextStyle(color: Colors.white, fontSize: 8),
         ),
       ),
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
     );
   }
 
@@ -865,9 +963,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 }
 
-int BadgeItems(){
+int BadgeItems() {
   var s1 = AppBadge();
-  print("-------------------------------------------- updated home cart    ----------------------- ${s1.getBadgeUpdate()}" );
+  print(
+      "-------------------------------------------- updated home cart    ----------------------- ${s1.getBadgeUpdate()}");
   return s1.getBadgeUpdate();
 }
 
@@ -1044,7 +1143,7 @@ class StarRating extends StatelessWidget {
     }
     return InkResponse(
       onTap:
-      onRatingChanged == null ? null : () => onRatingChanged!(index + 1.0),
+          onRatingChanged == null ? null : () => onRatingChanged!(index + 1.0),
       child: icon,
     );
   }
@@ -1054,7 +1153,7 @@ class StarRating extends StatelessWidget {
     return Row(
         mainAxisSize: MainAxisSize.min,
         children:
-        List.generate(starCount, (index) => buildStar(context, index)));
+            List.generate(starCount, (index) => buildStar(context, index)));
   }
 }
 
@@ -1070,7 +1169,7 @@ class BottomSheetContent extends StatefulWidget {
 }
 
 class _BottomSheetContentState extends State<BottomSheetContent> {
-   ProductCombination? selectedCombination;
+  ProductCombination? selectedCombination;
   String selectionText = "";
   List<ProductAttributeVariations> selectedVariations = [];
   int quantity = 1;
@@ -1084,7 +1183,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
     for (int i = 0; i < widget.product.attribute!.length; i++) {
       selectedVariations.add(widget.product.attribute![i].variations!.first);
     }
-selectedCombination=widget.product.productCombination![0];
+    selectedCombination = widget.product.productCombination![0];
     findCombination();
   }
 
@@ -1129,20 +1228,18 @@ selectedCombination=widget.product.productCombination![0];
         }
         if (found == this.selectedVariations.length)
           this.selectedCombination = combinations;
-
       }
     }
 
-   
-     selectionText = "";
+    selectionText = "";
     for (int i = 0; i < selectedCombination!.combination!.length; i++) {
       selectionText = ((i == 0)
           ? selectedCombination?.combination![i].variation!.detail!.first.name
           : selectionText +
-          ", " +
-          selectedCombination!.combination![i].variation!.detail!.first.name!)!;
+              ", " +
+              selectedCombination!
+                  .combination![i].variation!.detail!.first.name!)!;
     }
-   
   }
 
   bool checkForSelectedCombination(List<Combination> combination,
@@ -1164,8 +1261,9 @@ selectedCombination=widget.product.productCombination![0];
           topRight: Radius.circular(40),
           topLeft: Radius.circular(40),
         ),
-
-        color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).scaffoldBackgroundColor :  const Color(0xffF6F6F6),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).scaffoldBackgroundColor
+            : const Color(0xffF6F6F6),
       ),
       // color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).scaffoldBackgroundColor :  Color(0xffF6F6F6),
       padding: const EdgeInsets.symmetric(
@@ -1175,23 +1273,24 @@ selectedCombination=widget.product.productCombination![0];
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10,),
-          Center(child: Container(
+          const SizedBox(
+            height: 10,
+          ),
+          Center(
+              child: Container(
             width: 70,
             height: 4,
             decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)
-                ),
-
-                color: Color(0xffCCCCCC)
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(40)),
+                color: Color(0xffCCCCCC)),
           )),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    AppStyles.CARD_RADIUS),
+                borderRadius: BorderRadius.circular(AppStyles.CARD_RADIUS),
                 child: Container(
                   width: 80.0,
                   height: 80.0,
@@ -1199,11 +1298,12 @@ selectedCombination=widget.product.productCombination![0];
                     imageUrl: ApiProvider.imgMediumUrlString +
                         selectedCombination!.gallary!.gallaryName!,
                     fit: BoxFit.cover,
-                    progressIndicatorBuilder: (context, url, downloadProgress) =>
-                        Center(
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
                             child: CircularProgressIndicator(
                                 value: downloadProgress.progress)),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
               ),
@@ -1214,27 +1314,28 @@ selectedCombination=widget.product.productCombination![0];
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppData.currency!.code !+
-                        double.tryParse((selectedCombination!.price !* quantity)
-                            .toString())
-                            !.toStringAsFixed(2),
+                    AppData.currency!.code! +
+                        double.tryParse((selectedCombination!.price! * quantity)
+                                .toString())!
+                            .toStringAsFixed(2),
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   RichText(
                       text: TextSpan(children: [
-                        TextSpan(
-                          text: AppLocalizations.of(context).translate("Selection"),
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                        TextSpan(
-                            text: selectionText,
-                            style: TextStyle(
-                                color:
+                    TextSpan(
+                      text:
+                          AppLocalizations.of(context).translate("Selection"),
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    TextSpan(
+                        text: selectionText,
+                        style: TextStyle(
+                            color:
                                 Theme.of(context).brightness == Brightness.dark
                                     ? AppStyles.COLOR_GREY_DARK
                                     : AppStyles.COLOR_GREY_LIGHT)),
-                      ])),
+                  ])),
                 ],
               )
             ],
@@ -1274,14 +1375,13 @@ selectedCombination=widget.product.productCombination![0];
             height: 12.0,
           ),
           Container(
-
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   height: 24,
                   width: 24,
-                  child : MaterialButton(
+                  child: MaterialButton(
                     onPressed: () {
                       setState(() {
                         if (quantity > 1) quantity--;
@@ -1289,9 +1389,12 @@ selectedCombination=widget.product.productCombination![0];
                     },
                     color: Colors.grey,
                     textColor: Colors.white,
+                    child: const Text(
+                      "-",
+                      style: TextStyle(fontSize: 20),
+                    ),
                     padding: const EdgeInsets.only(bottom: 3),
                     shape: const CircleBorder(),
-                    child: const Text("-",style: TextStyle(fontSize: 20),),
                   ),
                 ),
                 // IconButton(
@@ -1317,7 +1420,7 @@ selectedCombination=widget.product.productCombination![0];
                 Container(
                   height: 24,
                   width: 24,
-                  child : MaterialButton(
+                  child: MaterialButton(
                     onPressed: () {
                       setState(() {
                         quantity++;
@@ -1325,12 +1428,14 @@ selectedCombination=widget.product.productCombination![0];
                     },
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
+                    child: const Text(
+                      "+",
+                      style: TextStyle(fontSize: 20),
+                    ),
                     padding: const EdgeInsets.only(bottom: 3),
                     shape: const CircleBorder(),
-                    child: const Text("+",style: TextStyle(fontSize: 20),),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -1344,19 +1449,19 @@ selectedCombination=widget.product.productCombination![0];
             width: double.maxFinite,
             child: ElevatedButton(
                 style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,),
+                    backgroundColor: MaterialStateProperty.all(
+                      Theme.of(context).primaryColor,
+                    ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-
-                        )
-                    )
-                ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ))),
                 onPressed: () {
                   widget.onVariationSelected(
                       selectedCombination!.productCombinationId!, quantity);
                 },
-                child: Text(AppLocalizations.of(context).translate("Continue"))),
+                child:
+                    Text(AppLocalizations.of(context).translate("Continue"))),
           ),
         ],
       ),
@@ -1398,8 +1503,8 @@ class _ChoiceChipsState extends State<ChoiceChips> {
               color: _selected == item.productVariation!.detail!.first.name
                   ? Theme.of(context).primaryColor
                   : Theme.of(context).brightness == Brightness.dark
-                  ? AppStyles.COLOR_GREY_DARK
-                  : AppStyles.COLOR_GREY_LIGHT),
+                      ? AppStyles.COLOR_GREY_DARK
+                      : AppStyles.COLOR_GREY_LIGHT),
           // shape: RoundedRectangleBorder(
           //   side: BorderSide(
           //       color: _selected == item.productVariation.detail.first.name
@@ -1412,9 +1517,10 @@ class _ChoiceChipsState extends State<ChoiceChips> {
           // ),
           shape: RoundedRectangleBorder(
             side: BorderSide(
-                color: _selected == item.productVariation!.detail!.first.name ? Theme.of(context).primaryColor : Colors.grey,
-                width: 1
-            ),
+                color: _selected == item.productVariation!.detail!.first.name
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey,
+                width: 1),
             borderRadius: BorderRadius.circular(5),
           ),
           selectedColor: Colors.transparent,

@@ -6,7 +6,10 @@ import 'package:flutter_kundol/constants/app_config.dart';
 
 class AppStyles {
 
+
   static const Color COLOR_SEARCH_BAR = Color(0x77CDD2D3);
+  static const Color COLOR_GREEN = Colors.green;
+  static const Color COLOR_BLUE = Colors.blue;
 
   static const Color COLOR_LIGHT_GREY = Color(0x77CDD2D3);
 
@@ -15,6 +18,7 @@ class AppStyles {
 
   static const Color COLOR_GREY_LIGHT = Color(0xFF9E9E9E);
   static const Color COLOR_GREY_DARK = Color(0xFFAAAAAA);
+  static const Color COLOR_BLACK = Color(0xFF000000);
 
   static const Color COLOR_CARD_DARK = Color(0xFF555555);
 

@@ -33,10 +33,12 @@ import 'package:launch_review/launch_review.dart';
 import 'package:share/share.dart';
 
 import '../blocs/reward_des/reward_des_bloc.dart';
+import '../blocs/server_settings/server_settings_bloc.dart';
 import '../blocs/wallet/wallet_bloc.dart';
 import '../blocs/wallet_total/total_bloc.dart';
 import '../constants/app_cart.dart';
 import '../repos/reward_des_repo.dart';
+import '../repos/settings_repo.dart';
 import '../repos/total_repo.dart';
 import '../repos/wallet_repo.dart';
 import '../tweaks/app_localization.dart';
@@ -56,10 +58,10 @@ class MeFragment extends StatelessWidget {
         headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
           AppConfig.APP_BAR_COLOR == 1 ?
           SliverAppBar(
-            backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.white,
             leading: GestureDetector(
               onTap: () => navigateToNext(Settings()),
-              child: SvgPicture.asset("assets/icons/ic_setting.svg",
+              child: SvgPicture.asset("assets/icons/ic_setting.svg",color: Colors.black,
                   fit: BoxFit.none),
             ),
             actions: [
@@ -74,7 +76,7 @@ class MeFragment extends StatelessWidget {
                 child: Padding(
                     padding: EdgeInsets.only(right: 12.0),
                     child: SvgPicture.asset("assets/icons/ic_cart.svg",
-                        fit: BoxFit.none, color: Colors.white)),
+                        fit: BoxFit.none, color: Colors.black)),
               ),
             ],
             expandedHeight: 140.0,
@@ -138,7 +140,7 @@ class MeFragment extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText1
-                                          !.copyWith(color: Colors.white),
+                                          !.copyWith(color: Colors.black),
                                     ),
                                     SizedBox(
                                       height: 2.0,
@@ -147,13 +149,13 @@ class MeFragment extends StatelessWidget {
                                       ( (AppData.user != null)
                                           ? AppData.user!.email
                                           : AppLocalizations.of(context)!.translate("Please Login"))!,
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: Colors.black),
                                     ),
                                   ],
                                 ),
                                 Expanded(child: SizedBox()),
                                 IconTheme(
-                                    data: IconThemeData(color: Colors.white),
+                                    data: IconThemeData(color: Colors.black),
                                     child: Icon(Icons.navigate_next)),
                               ],
                             ),
@@ -511,6 +513,8 @@ class MeFragment extends StatelessWidget {
                                 vertical: 16.0,
                                 horizontal: AppStyles.SCREEN_MARGIN_HORIZONTAL),
                             child: Row(
+
+
                               children: [
                                 Container(
                                   width: 60.0,
@@ -1093,10 +1097,31 @@ class MeFragment extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () => navigateToNext(BlocProvider(
-                                  create: (BuildContext context) =>
-                                      RewardBloc(RealRewardPoints()),
-                                  child: RewardScreen())),
+                              onTap: () => navigateToNext(
+
+                                MultiBlocProvider(
+                                    providers: [
+                                      BlocProvider<RewardnBloc>(
+                                        create: (BuildContext context) => RewardnBloc(RealRewardnRepo()),
+                                      ),
+                                      BlocProvider<RewarddesBloc>(
+                                        create: (BuildContext context) => RewarddesBloc(RealRewarddesRepo()),
+                                      ),
+
+                                    ],
+                                    child: RewardScreen(),
+                              )
+                                // BlocProvider(
+                                //   create: (context) =>
+                                //       RewardnBloc(RealRewardnRepo()),
+                                //   child:  RewardScreen()),
+
+                                  // BlocProvider(
+                                  // create: (BuildContext context) =>
+                                  //     RewardnBloc(RewardnRepo),
+                                  // child: RewardScreen())
+
+                              ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

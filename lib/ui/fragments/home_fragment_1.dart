@@ -64,35 +64,35 @@ final keyCounterr = GlobalKey();
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        widget.navigateToNext(BlocProvider(
-                          create: (context) => ProductsSearchBloc(RealProductsRepo()),
-                          child: SearchScreen(widget.navigateToNext),
-                        ));
-                      },
-                      child: Container(
-                        height: 56.0,
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        alignment: Alignment.centerLeft,
-                        decoration: const BoxDecoration(
-                          color: AppStyles.COLOR_SEARCH_BAR,
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(AppStyles.CARD_RADIUS)),
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset("assets/icons/ic_search_new.svg",color: Colors.grey[700],height: 18,width: 18,),
-                            Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Text(
-                                  "What are you looking for?",
-                                  style: Theme.of(context).textTheme.caption,
-                                ))
-                          ],
-                        ),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     widget.navigateToNext(BlocProvider(
+                    //       create: (context) => ProductsSearchBloc(RealProductsRepo()),
+                    //       child: SearchScreen(widget.navigateToNext),
+                    //     ));
+                    //   },
+                    //   child: Container(
+                    //     height: 56.0,
+                    //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    //     alignment: Alignment.centerLeft,
+                    //     decoration: const BoxDecoration(
+                    //       color: AppStyles.COLOR_SEARCH_BAR,
+                    //       borderRadius:
+                    //       BorderRadius.all(Radius.circular(AppStyles.CARD_RADIUS)),
+                    //     ),
+                    //     child: Row(
+                    //       children: [
+                    //         SvgPicture.asset("assets/icons/ic_search_new.svg",color: Colors.grey[700],height: 18,width: 18,),
+                    //         Padding(
+                    //             padding: const EdgeInsets.only(left: 10),
+                    //             child: Text(
+                    //               "What are you looking for?",
+                    //               style: Theme.of(context).textTheme.caption,
+                    //             ))
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 16.0,
                     ),

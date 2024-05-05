@@ -20,12 +20,16 @@ class SaleBannerWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (isTitleVisible)
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
     child: Text((AppLocalizations.of(context)!.translate("Year end sale"))!.toUpperCase(),
-                  style: Theme.of(context).textTheme.subtitle1),
+                  style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+
+                  // Theme.of(context).textTheme.subtitle1
+    ),
             ),
           BlocBuilder<CategoriesBloc, CategoriesState>(
             builder: (context, state) {

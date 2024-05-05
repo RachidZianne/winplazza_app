@@ -50,17 +50,18 @@ class Settings extends StatelessWidget {
           icon: Icon(Icons.arrow_back_outlined, color: Theme.of(context).brightness ==
               Brightness.dark
               ? Colors.black
-              : Colors.white,),
+              : Colors.black,),
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
         title: Text(
           AppLocalizations.of(context)!.translate("Settings")!,
-          style: TextStyle( color: Theme.of(context).brightness ==
+          style: TextStyle(
+            fontFamily: "MontserratSemiBold",color: Theme.of(context).brightness ==
               Brightness.dark
               ? Colors.black
-              : Colors.white,),),
-        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,
+              : Colors.black,),),
+        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.white,
         elevation: 0.0,
       ):
           AppBar(
@@ -115,24 +116,24 @@ class Settings extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => BlocProvider(
-                                                create: (BuildContext context) {
-                                                  return GetLanguageBloc(RealGetLanguageRepo());
-                                                },
-                                                child: LanguagesScreen())));
-                                  },
-                                  child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
-                                    AppLocalizations.of(context)!.translate("Languages")!,
-                                    style: const TextStyle(fontSize: 16),))),
-                              Divider(
-                                height: 1,
-                                color: Theme.of(context).primaryColor,
-                              ),
+                              // GestureDetector(
+                              //     onTap: (){
+                              //       Navigator.push(
+                              //           context,
+                              //           MaterialPageRoute(
+                              //               builder: (context) => BlocProvider(
+                              //                   create: (BuildContext context) {
+                              //                     return GetLanguageBloc(RealGetLanguageRepo());
+                              //                   },
+                              //                   child: LanguagesScreen())));
+                              //     },
+                              //     child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
+                              //       AppLocalizations.of(context)!.translate("Languages")!,
+                              //       style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),))),
+                              // Divider(
+                              //   height: 1,
+                              //   color: Theme.of(context).primaryColor,
+                              // ),
                               GestureDetector(
                                   onTap: (){
                                     Navigator.push(
@@ -146,7 +147,7 @@ class Settings extends StatelessWidget {
                                   },
                                   child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
                                     AppLocalizations.of(context)!.translate("Currencies")!,
-                                    style: const TextStyle(fontSize: 16),))),
+                                    style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),))),
                               Divider(
                                 height: 1,
                                 color: Theme.of(context).primaryColor,
@@ -159,7 +160,7 @@ class Settings extends StatelessWidget {
                                   contentPadding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                   title:   Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
                                     AppLocalizations.of(context)!.translate("Dark Mode")!,
-                                    style: const TextStyle(fontSize: 16),)),
+                                    style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),)),
                                   value: state.themeData.brightness == Brightness.dark
                                       ? true
                                       : false,
@@ -213,7 +214,7 @@ class Settings extends StatelessWidget {
                                   },
                                   child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
                                     AppLocalizations.of(context)!.translate("About Us")!,
-                                    style: const TextStyle(fontSize: 16),))),
+                                    style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),))),
                               Divider(
                                 height: 1,
                                 color: Theme.of(context).primaryColor,
@@ -232,7 +233,7 @@ class Settings extends StatelessWidget {
                                   },
                                   child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
                                     AppLocalizations.of(context)!.translate("Refund Policy")!,
-                                    style: const TextStyle(fontSize: 16),))),
+                                    style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),))),
                               Divider(
                                 height: 1,
                                 color: Theme.of(context).primaryColor,
@@ -251,7 +252,7 @@ class Settings extends StatelessWidget {
                                   },
                                   child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
                                     AppLocalizations.of(context)!.translate("Privacy Policy")!,
-                                    style: const TextStyle(fontSize: 16),))),
+                                    style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),))),
                               Divider(
                                 height: 1,
                                 color: Theme.of(context).primaryColor,
@@ -270,7 +271,7 @@ class Settings extends StatelessWidget {
                                   },
     child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
     AppLocalizations.of(context)!.translate("Terms and Condition")!,
-    style: const TextStyle(fontSize: 16),))),
+    style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),))),
                               Divider(
                                 height: 1,
                                 color: Theme.of(context).primaryColor,
@@ -283,7 +284,7 @@ class Settings extends StatelessWidget {
                                   },
     child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
     AppLocalizations.of(context)!.translate("Share App")!,
-    style: const TextStyle(fontSize: 16),))),
+    style: const TextStyle(fontSize: 15, fontFamily: "MontserratSemiBold"),))),
                               Divider(
                                 height: 1,
                                 color: Theme.of(context).primaryColor,
@@ -298,7 +299,7 @@ class Settings extends StatelessWidget {
                                   },
                                   child: Padding( padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),child: Text(
                                   AppLocalizations.of(context)!.translate("Rate My App")!,
-                                  style: const TextStyle(fontSize: 16),))),
+                                  style: const TextStyle(fontSize: 15,fontFamily: "MontserratSemiBold"),))),
                             ],
                           )
                       ),
@@ -344,47 +345,51 @@ class Settings extends StatelessWidget {
             //     }
             //   },
             // ),
-            BlocConsumer<AuthBloc, AuthState>(
-              builder: (context, state) => Container(
-                margin: EdgeInsets.all(15),
-                height: 40.0,
-                width: double.maxFinite,
-                child: ElevatedButton(
-                    style: AppConfig.APP_BAR_COLOR == 2 ?
-                    ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
-                        //backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: BlocConsumer<AuthBloc, AuthState>(
+                builder: (context, state) => Container(
+                  margin: EdgeInsets.all(15),
+                  height: 45.0,
+                  width: double.maxFinite,
+                  child: ElevatedButton(
+                      style: AppConfig.APP_BAR_COLOR == 2 ?
+                      ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
+                          //backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.0),
 
-                            )
-                        )
-                    ):
-                    ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
-                        //backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            )
-                        )
-                    ),
-                    onPressed: () {
-                      BlocProvider.of<AuthBloc>(context).add(PerformLogout());
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.translate("Sign out")!,
-                      style: TextStyle(fontSize: 16),)),
+                              )
+                          )
+                      ):
+                      ButtonStyle(
+
+                          backgroundColor: MaterialStateProperty.all(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Colors.black,),
+                          //backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColorLight : Theme.of(context).primaryColor,),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.0),
+                              )
+                          )
+                      ),
+                      onPressed: () {
+                        BlocProvider.of<AuthBloc>(context).add(PerformLogout());
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.translate("Sign out")!,
+                        style: TextStyle(fontSize: 16),)),
+                ),
+                listener: (context, state) {
+                  if (state is UnAuthenticated) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
+                        AppLocalizations.of(context)!.translate("logout successful")!
+                    )));
+                    Navigator.pop(context);
+                  }
+                },
               ),
-              listener: (context, state) {
-                if (state is UnAuthenticated) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
-                      AppLocalizations.of(context)!.translate("logout successful")!
-                  )));
-                  Navigator.pop(context);
-                }
-              },
             ),
             // ListTile(
             //   title: Text("Languages"),

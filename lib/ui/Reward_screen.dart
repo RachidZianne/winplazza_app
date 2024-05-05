@@ -27,20 +27,20 @@ class _RewardScreenState extends State<RewardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         backgroundColor: Colors.white30,
         centerTitle: true,
         elevation: 0,
-        title: Text("Reward Screen",style: TextStyle(color: Colors.black),),
+        title: const Text("Reward Screen",style: TextStyle(color: Colors.black),),
       ),
       body:Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               BlocBuilder<RewardnBloc, RewardnState>(
                 builder: (context, state){
                   if(state is RewardnLoaded){
