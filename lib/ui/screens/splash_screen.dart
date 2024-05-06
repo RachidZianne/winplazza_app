@@ -16,10 +16,11 @@ import 'package:flutter_kundol/tweaks/shared_pref_service.dart';
 
 import '../../main.dart';
 import '../main_screen.dart';
+
 //TODO: need to change splash screen types.
 class SplashScreen extends StatefulWidget {
   final String splash;
- const SplashScreen({Key? key, required this.splash}) : super(key: key);
+  const SplashScreen({Key? key, required this.splash}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -46,30 +47,63 @@ class _SplashScreenState extends State<SplashScreen> {
         if (state is ServerSettingsLoaded) {
           AppData.settingsResponse = state.settingsResponse;
 
-          AppData.settingsResponse?.setKeyValue(SettingsResponse.HOME_STYLE, AppData.settingsResponse!.getKeyValue(SettingsResponse.HOME_STYLE).replaceAll(RegExp(r'[^0-9]'),''));
-          AppData.settingsResponse?.setKeyValue(SettingsResponse.CATEGORY_STYLE, AppData.settingsResponse!.getKeyValue(SettingsResponse.CATEGORY_STYLE).replaceAll(RegExp(r'[^0-9]'),''));
-          AppData.settingsResponse?.setKeyValue(SettingsResponse.BANNER_STYLE, AppData.settingsResponse!.getKeyValue(SettingsResponse.BANNER_STYLE).replaceAll(RegExp(r'[^0-9]'),''));
-          AppData.settingsResponse?.setKeyValue(SettingsResponse.CARD_STYLE, AppData.settingsResponse!.getKeyValue(SettingsResponse.CARD_STYLE).replaceAll(RegExp(r'[^0-9]'),''));
+          AppData.settingsResponse?.setKeyValue(
+              SettingsResponse.HOME_STYLE,
+              AppData.settingsResponse!
+                  .getKeyValue(SettingsResponse.HOME_STYLE)
+                  .replaceAll(RegExp(r'[^0-9]'), ''));
+          AppData.settingsResponse?.setKeyValue(
+              SettingsResponse.CATEGORY_STYLE,
+              AppData.settingsResponse!
+                  .getKeyValue(SettingsResponse.CATEGORY_STYLE)
+                  .replaceAll(RegExp(r'[^0-9]'), ''));
+          AppData.settingsResponse?.setKeyValue(
+              SettingsResponse.BANNER_STYLE,
+              AppData.settingsResponse!
+                  .getKeyValue(SettingsResponse.BANNER_STYLE)
+                  .replaceAll(RegExp(r'[^0-9]'), ''));
+          AppData.settingsResponse?.setKeyValue(
+              SettingsResponse.CARD_STYLE,
+              AppData.settingsResponse!
+                  .getKeyValue(SettingsResponse.CARD_STYLE)
+                  .replaceAll(RegExp(r'[^0-9]'), ''));
 
           CurrencyData currencyData = CurrencyData();
 
-          currencyData.title = AppData.settingsResponse!.getKeyValue(SettingsResponse.CURRENCY_CODE).trim();
-          currencyData.currencyId = int.parse(AppData.settingsResponse!.getKeyValue(SettingsResponse.CURRENCY_ID).toString());
-          currencyData.code = AppData.settingsResponse!.getKeyValue(SettingsResponse.CURRENCY_SYMBOL).trim();
+          currencyData.title = AppData.settingsResponse!
+              .getKeyValue(SettingsResponse.CURRENCY_CODE)
+              .trim();
+          currencyData.currencyId = int.parse(AppData.settingsResponse!
+              .getKeyValue(SettingsResponse.CURRENCY_ID)
+              .toString());
+          currencyData.code = AppData.settingsResponse!
+              .getKeyValue(SettingsResponse.CURRENCY_SYMBOL)
+              .trim();
 
-          BlocProvider.of<CurrencyBloc>(context).add(CurrencyLoadServer(currencyData));
+          BlocProvider.of<CurrencyBloc>(context)
+              .add(CurrencyLoadServer(currencyData));
 
           LanguageData languageData = LanguageData();
 
-          languageData.languageName = AppData.settingsResponse?.getKeyValue(SettingsResponse.LANGUAGE_CODE).toUpperCase().trim();
-          languageData.id = int.parse(AppData.settingsResponse!.getKeyValue(SettingsResponse.LANGUAGE_ID).toString());
-          languageData.code = AppData.settingsResponse?.getKeyValue(SettingsResponse.LANGUAGE_CODE).toLowerCase().trim();
+          languageData.languageName = AppData.settingsResponse
+              ?.getKeyValue(SettingsResponse.LANGUAGE_CODE)
+              .toUpperCase()
+              .trim();
+          languageData.id = int.parse(AppData.settingsResponse!
+              .getKeyValue(SettingsResponse.LANGUAGE_ID)
+              .toString());
+          languageData.code = AppData.settingsResponse
+              ?.getKeyValue(SettingsResponse.LANGUAGE_CODE)
+              .toLowerCase()
+              .trim();
 
-          BlocProvider.of<LanguageBloc>(context).add(LanguageLoadServer(languageData));
+          BlocProvider.of<LanguageBloc>(context)
+              .add(LanguageLoadServer(languageData));
 
-          Future.microtask(() => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                  builder: (BuildContext context) => MainScreen())));
+          Future.delayed(const Duration(seconds: 2)).then((value) {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => MainScreen()));
+          });
         } else if (state is ServerSettingsError) {
           showSnackbar(context, state.error);
         }
@@ -121,7 +155,10 @@ class ScreenUi extends StatelessWidget {
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: Image.network(AppConfig.ECOMMERCE_URL + splash_backend, fit: BoxFit.fill,),
+          child: Image.network(
+            AppConfig.ECOMMERCE_URL + splash_backend,
+            fit: BoxFit.fill,
+          ),
           /*child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

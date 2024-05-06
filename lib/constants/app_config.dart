@@ -3,6 +3,8 @@ class AppConfig {
   static const ECOMMERCE_URL        = "https://abc123.winplazza.com";
   static const SPLASH_SCREEN        = "$ECOMMERCE_URL/api/get-splash-logo";
   // static final ECOMMERCE_URL        = "https://rawal-dev.vector-coder.com";
+  static const appname = 'new appname';
+  static const appicon = '$ECOMMERCE_URL/api/get-splash-logo';
 
   static const CONSUMER_KEY           = "1234";
   static const CONSUMER_SECRET        = "sk_1234";

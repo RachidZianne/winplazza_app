@@ -444,7 +444,7 @@ class SignIn extends StatelessWidget {
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ],
-                              )),
+                              ),),
                         ),
 
                         // GestureDetector(

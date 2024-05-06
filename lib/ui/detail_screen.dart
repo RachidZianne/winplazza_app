@@ -84,12 +84,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 int.tryParse(state.quantityData.remainingStock!) == 0) {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(AppLocalizations.of(context).translate("Stock is empty"))));
+                  content: Text(AppLocalizations.of(context)
+                      .translate("Stock is empty"))));
             } else if (int.tryParse(state.quantityData.remainingStock!)! <
                 quantity) {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(AppLocalizations.of(context).translate("Max stock available is")+
+                  content: Text(AppLocalizations.of(context)
+                          .translate("Max stock available is") +
                       state.quantityData.remainingStock!)));
             } else if (int.tryParse(state.quantityData.remainingStock!)! >=
                 quantity) {
@@ -143,7 +145,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                       centerWidget: Center(
                           child: Text(
-                        AppLocalizations.of(context).translate("Product Details"),
+                        AppLocalizations.of(context)
+                            .translate("Product Details"),
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: "MontserratSemiBold",
@@ -391,13 +394,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                 .product.productDiscountPrice !=
                                             0)
                                           buildLabel(
-                                            AppLocalizations.of(context).translate("SALE"),
+                                            AppLocalizations.of(context)
+                                                .translate("SALE"),
                                             Theme.of(context).primaryColor,
                                           ),
                                         const SizedBox(width: 10),
                                         if (widget.product.isFeatured == 1)
                                           buildLabel(
-                                            AppLocalizations.of(context).translate("FEATURED"),
+                                            AppLocalizations.of(context)
+                                                .translate("FEATURED"),
                                             const Color(0xFF36AFFF),
                                           ),
                                         /*SizedBox(width: 10),
@@ -453,7 +458,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         GestureDetector(
                                           onTap: () {
                                             Share.share(AppLocalizations.of(
-                                                    context).translate(
+                                                    context)
+                                                .translate(
                                                     "Hi there, please check this app. i think you will love it. "));
                                           },
                                           child: Icon(
@@ -519,7 +525,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 RichText(
                                     text: TextSpan(children: [
                                   TextSpan(
-                                    text: AppLocalizations.of(context).translate("Category"),
+                                    text: AppLocalizations.of(context)
+                                        .translate("Category"),
                                     style:
                                         Theme.of(context).textTheme.bodyText2,
                                   ),
@@ -536,7 +543,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 RichText(
                                     text: TextSpan(children: [
                                   TextSpan(
-                                    text: AppLocalizations.of(context).translate('ID'),
+                                    text: AppLocalizations.of(context)
+                                        .translate('ID'),
                                     style:
                                         Theme.of(context).textTheme.bodyText2,
                                   ),
@@ -552,7 +560,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 RichText(
                                     text: TextSpan(children: [
                                   TextSpan(
-                                    text: AppLocalizations.of(context).translate("Tags"),
+                                    text: AppLocalizations.of(context)
+                                        .translate("Tags"),
                                     style:
                                         Theme.of(context).textTheme.bodyText2,
                                   ),
@@ -569,7 +578,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ])),
                                 const SizedBox(height: 8.0),
                                 Text(
-                                  AppLocalizations.of(context).translate("Description"),
+                                  AppLocalizations.of(context)
+                                      .translate("Description"),
                                   textAlign: TextAlign.start,
                                   style: Theme.of(context)
                                       .textTheme
@@ -636,7 +646,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     dense: true,
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 0),
-                                    title: Text(AppLocalizations.of(context).translate("Quantity")),
+                                    title: Text(AppLocalizations.of(context)
+                                        .translate("Quantity")),
                                     trailing: Container(
                                       // decoration: BoxDecoration(
                                       //   border: Border.all(
@@ -728,7 +739,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                AppLocalizations.of(context).translate("Reviews"),
+                                                AppLocalizations.of(context)
+                                                    .translate("Reviews"),
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontWeight:
@@ -736,7 +748,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                               ),
                                             ),
                                             Text(
-                                              AppLocalizations.of(context).translate("See All"),
+                                              AppLocalizations.of(context)
+                                                  .translate("See All"),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText2,
@@ -745,7 +758,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         ),
                                         const SizedBox(height: 8.0),
                                         Text(
-                                          AppLocalizations.of(context).translate("Review name"),
+                                          AppLocalizations.of(context)
+                                              .translate("Review name"),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2,
@@ -785,7 +799,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                               text: " (" +
                                                   widget.product.reviews!.length
                                                       .toString() +
-                                                  AppLocalizations.of(context).translate("Reviews"),
+                                                  AppLocalizations.of(context)
+                                                      .translate("Reviews"),
                                               style: TextStyle(
                                                   color: Theme.of(context)
                                                               .brightness ==
@@ -848,14 +863,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       style: const TextStyle(fontFamily: "MontserratSemiBold"),
                     ),
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        // backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
+                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                      // backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40.0),
-                        ))),
+                        ),
+                      ),
+                    ),
                     onPressed: () {
                       print("add to cart");
                       if (widget.product.productType ==
@@ -863,10 +878,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         buildBottomSheet(context);
                       else {
                         BlocProvider.of<DetailScreenBloc>(context).add(
-                            GetQuantity(
-                                widget.product.productId!,
-                                AppLocalizations.of(context).translate("simple"),
-                                1));
+                          GetQuantity(
+                            widget.product.productId!,
+                            AppLocalizations.of(context).translate("simple"),
+                            1,
+                          ),
+                        );
                       }
                     },
                     // child: Text("Add to Bag")
@@ -1324,8 +1341,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
-                      text:
-                          AppLocalizations.of(context).translate("Selection"),
+                      text: AppLocalizations.of(context).translate("Selection"),
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                     TextSpan(
